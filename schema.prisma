@@ -11,8 +11,10 @@ model User {
 }
 
 model Customer {
-    id   String @id @default(cuid())
-    name String
+    id String @id @default(cuid())
+
+    name    String
+    contact String
 
     users     User[]
     services  Service[]
