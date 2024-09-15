@@ -89,9 +89,10 @@ enum CheckoutStatus {
 model Checkout {
     id String @id @default(cuid())
 
-    Service Service?
+    Service  Service?
+    status   CheckoutStatus @default(OPEN)
+    closedAt DateTime?
 
-    status    CheckoutStatus @default(OPEN)
-    createdAt DateTime       @default(now())
-    updatedAt DateTime       @default(now()) @updatedAt
+    createdAt DateTime @default(now())
+    updatedAt DateTime @default(now()) @updatedAt
 }
