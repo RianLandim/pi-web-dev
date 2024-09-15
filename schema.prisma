@@ -14,11 +14,49 @@ model Customer {
     id   String @id @default(cuid())
     name String
 
-    users    User[]
-    services Service[]
+    users     User[]
+    services  Service[]
+    part      Part[]
+    address   Address   @relation(fields: [addressId], references: [id])
+    addressId String
 
     createdAt DateTime @default(now())
     updatedAt DateTime @default(now()) @updatedAt
+}
+
+enum PartType {
+    REPLACEMENT
+    MAINTENANCE
+}
+
+model Part {
+    id String @id @default(cuid())
+
+    name        String
+    description String
+
+    type       PartType
+    Customer   Customer @relation(fields: [customerId], references: [id])
+    customerId String
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @default(now()) @updatedAt
+}
+
+model Address {
+    id String @id @default(cuid())
+
+    zipCode      String
+    street       String
+    neighborhood String
+    city         String
+    state        String
+
+    number Int
+
+    createdAt DateTime   @default(now())
+    updatedAt DateTime   @default(now()) @updatedAt
+    Customer  Customer[]
 }
 
 enum ServiceStatus {
