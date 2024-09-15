@@ -1,0 +1,59 @@
+model User {
+    id       String @id @default(cuid())
+    name     String
+    email    String @unique
+    password String
+
+    customers Customer[]
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @default(now()) @updatedAt
+}
+
+model Customer {
+    id   String @id @default(cuid())
+    name String
+
+    users    User[]
+    services Service[]
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @default(now()) @updatedAt
+}
+
+enum ServiceStatus {
+    OPEN
+    PROGRESS
+    CANCELLED
+    FINISHED
+}
+
+model Service {
+    id String @id @default(cuid())
+
+    status      ServiceStatus @default(OPEN)
+    scheduledAt DateTime
+    customer    Customer      @relation(fields: [customerId], references: [id])
+    customerId  String
+    checkout    Checkout      @relation(fields: [checkoutId], references: [id])
+    checkoutId  String        @unique
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @default(now()) @updatedAt
+}
+
+enum CheckoutStatus {
+    OPEN
+    CANCELLED
+    PAID
+}
+
+model Checkout {
+    id String @id @default(cuid())
+
+    Service Service?
+
+    status    CheckoutStatus @default(OPEN)
+    createdAt DateTime       @default(now())
+    updatedAt DateTime       @default(now()) @updatedAt
+}
