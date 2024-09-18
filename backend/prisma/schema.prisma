@@ -1,0 +1,115 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+    id       String @id @default(cuid())
+    name     String
+    email    String @unique
+    password String
+
+    customers Customer[]
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @default(now()) @updatedAt
+}
+
+model Customer {
+    id String @id @default(cuid())
+
+    name    String
+    contact String
+
+    users     User[]
+    services  Service[]
+    part      Part[]
+    address   Address   @relation(fields: [addressId], references: [id])
+    addressId String
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @default(now()) @updatedAt
+}
+
+enum PartType {
+    REPLACEMENT
+    MAINTENANCE
+}
+
+model Part {
+    id String @id @default(cuid())
+
+    name        String
+    description String
+
+    type       PartType
+    Customer   Customer @relation(fields: [customerId], references: [id])
+    customerId String
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @default(now()) @updatedAt
+}
+
+model Address {
+    id String @id @default(cuid())
+
+    zipCode      String
+    street       String
+    neighborhood String
+    city         String
+    state        String
+
+    number Int
+
+    createdAt DateTime   @default(now())
+    updatedAt DateTime   @default(now()) @updatedAt
+    Customer  Customer[]
+}
+
+enum ServiceStatus {
+    OPEN
+    PROGRESS
+    CANCELLED
+    FINISHED
+}
+
+model Service {
+    id String @id @default(cuid())
+
+    status      ServiceStatus @default(OPEN)
+    scheduledAt DateTime
+    customer    Customer      @relation(fields: [customerId], references: [id])
+    customerId  String
+    checkout    Checkout      @relation(fields: [checkoutId], references: [id])
+    checkoutId  String        @unique
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @default(now()) @updatedAt
+}
+
+enum CheckoutStatus {
+    OPEN
+    CANCELLED
+    PAID
+}
+
+model Checkout {
+    id String @id @default(cuid())
+
+    Service  Service?
+    status   CheckoutStatus @default(OPEN)
+    closedAt DateTime?
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @default(now()) @updatedAt
+}

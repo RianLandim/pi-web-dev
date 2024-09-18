@@ -1,0 +1,11 @@
+
+services:
+  db:
+     image: 'bitnami/postgresql:latest'
+     ports:
+      - '5432:5432'
+     environment:
+      - 'ALLOW_EMPTY_PASSWORD=no'
+      - 'POSTGRESQL_USERNAME=root'
+      - 'POSTGRESQL_DATABASE=management_Scheduling'
+      - 'POSTGRESQL_PASSWORD=123456'
