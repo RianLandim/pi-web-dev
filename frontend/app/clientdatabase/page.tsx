@@ -9,16 +9,43 @@ import NavBar from "../components/navBar";
 import { PlusCircle } from "@phosphor-icons/react";
 import DetailedCardClient from "./_components/DetailedCardClient";
 
+interface client {
+  description: string;
+  name: string;
+  data: string;
+  email: string;
+  phone: string;
+  address: string;
+  scheduledVisits: string;
+  VisitsMade: string;
+}
+
 export default function PaymentsPage() {
   const [name, setName] = useState("");
+  const [selectedClient, setSelectedClient] = useState<string | null>(null);
 
   const clients = [
-    { description: "Manuteçao de geladeira", name: "Wesley" },
-    { description: "Manuteçao de geladeira", name: "Maria" },
-    { description: "Manuteçao de geladeira", name: "João" },
-    { description: "Manuteçao de geladeira", name: "Carlos" },
-    { description: "Manuteçao de geladeira", name: "Ana" },
-    { description: "Manuteçao de geladeira", name: "Gomes" },
+    {
+      description: "Manutenção de geladeira",
+      name: "Wesley",
+      data: "12/12/2022",
+      email: "wesley@mail.com",
+      phone: "123456789",
+      address: "Rua A, 123",
+      scheduledVisits: "2",
+      VisitsMade: "1",
+    },
+    {
+      description: "Manutenção de geladeira",
+      name: "Maria",
+      data: "10/10/2022",
+      email: "maria@mail.com",
+      phone: "987654321",
+      address: "Rua B, 456",
+      scheduledVisits: "3",
+      VisitsMade: "3",
+    },
+    // more clients...
   ];
 
   // Filtra a lista de clientes com base no nome digitado
@@ -27,7 +54,7 @@ export default function PaymentsPage() {
   );
 
   return (
-    <main className="bg-main h-screen w-full pt-16">
+    <main className="bg-main  h-screen w-full pt-16">
       <article className="h-[92%] w-full space-y-5 px-6 flex flex-col ">
         <div className="flex justify-between w-full items-center ">
           <h1 className="text-xl">Base de Clientes</h1>
@@ -55,18 +82,8 @@ export default function PaymentsPage() {
           <PlusCircle size={32} className="fill-whiteApp" />
         </section>
 
-        <DetailedCardClient
-          VisitsMade="12"
-          address="Rua taltatatllt"
-          data="12/12/1915"
-          email="test@email.com"
-          name="Ricardo"
-          phone="(11) 9 91234-1234"
-          scheduledVisits="12" isEditing
-        />
-
         {/* Lista de clientes filtrados */}
-        <section className="w-full h-fit rounded-xl space-y-3 overflow-scroll flex flex-col pb-6">
+        {/* <section className="w-full h-fit rounded-xl space-y-3 overflow-scroll flex flex-col pb-6">
           {filteredClients.length > 0 ? (
             filteredClients.map((client, index) => (
               <CardClient
@@ -74,6 +91,35 @@ export default function PaymentsPage() {
                 name={client.name}
                 description={client.description}
               />
+            ))
+          ) : (
+            <p>Nenhum cliente encontrado.</p>
+          )}
+        </section> */}
+        {/* Conditionally render the detailed view or the client list */}
+
+        <section className="w-full h-fit rounded-xl space-y-3 overflow-scroll flex flex-col pb-6">
+          {filteredClients.length > 0 ? (
+            filteredClients.map((client, index) => (
+              <div key={index} onClick={() => setSelectedClient(client.name)}>
+                {selectedClient === client.name ? (
+                  <DetailedCardClient
+                    name={client.name}
+                    data={client.data}
+                    email={client.email}
+                    phone={client.phone}
+                    address={client.address}
+                    scheduledVisits={client.scheduledVisits}
+                    VisitsMade={client.VisitsMade}
+                    isEditing={false}
+                  />
+                ) : (
+                  <CardClient
+                    name={client.name}
+                    description={client.description}
+                  />
+                )}
+              </div>
             ))
           ) : (
             <p>Nenhum cliente encontrado.</p>
