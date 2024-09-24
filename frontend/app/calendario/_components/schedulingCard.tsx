@@ -3,8 +3,8 @@ import { Input } from "../../../package/ui/src/input";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useHookFormMask } from "use-mask-input";
 import { useEffect, useState } from "react";
+import { useCalendarEventDisclosure } from "./hooks/useCalendarEventDisclosure";
 
 const EditClientDataFormSchema = z.object({
   name: z.string().min(1, "Nome obrigatório"),
@@ -21,7 +21,7 @@ export default function SchedulingCard() {
     handleSubmit,
     register,
     formState: { errors },
-    reset, 
+    reset,
   } = useForm<EditClientData>({
     resolver: zodResolver(EditClientDataFormSchema),
   });
@@ -39,11 +39,14 @@ export default function SchedulingCard() {
     // ... outros nomes
   ]);
 
-  // useEffect(() => {
-  //   reset(props);
-  // }, [props, reset]);
+  const { selectedDate } = useCalendarEventDisclosure();
 
-  
+  useEffect(() => {
+    reset({
+      date: selectedDate,
+    });
+  }, [selectedDate, reset]);
+
   const submit = (data: any) => {
     console.log("data:", data);
   };
@@ -54,14 +57,15 @@ export default function SchedulingCard() {
         className="w-full flex flex-col space-y-3 h-fit justify-between"
         onSubmit={handleSubmit(submit)}
       >
-        <h1>Agendamento</h1>
-
         <div className="w-full h-fit flex flex-col space-y-2">
           <div className="flex flex-col space-y-1">
             <p className="text-sm font-light">Evento</p>
             <Input
               id="event"
-              placeholder={(errors.event && errors.event.message) || "Conserto máquina de lavar"}
+              placeholder={
+                (errors.event && errors.event.message) ||
+                "Conserto máquina de lavar"
+              }
               type="text"
               className={`pl-2 ${
                 errors.event ? "placeholder:text-red-500" : "text-black"

@@ -7,13 +7,20 @@ import {
 } from "@schedule-x/calendar";
 import "@schedule-x/theme-default/dist/index.css";
 
-function CalendarApp() {
-  const monthGridView = createViewMonthGrid(); 
+interface CalendarAppProps {
+  onClickAgendaDate?: (date: string) => void;
+}
+
+function CalendarApp({ onClickAgendaDate }: CalendarAppProps) {
+  const monthGridView = createViewMonthGrid();
   const dayView = createViewDay();
   const weekView = createViewWeek();
   const monthAgendaView = createViewMonthAgenda();
 
   const calendar = useNextCalendarApp({
+    callbacks: {
+      onClickAgendaDate,
+    },
     views: [monthGridView, dayView, weekView, monthAgendaView],
     events: [
       {
@@ -33,8 +40,8 @@ function CalendarApp() {
     locale: "pt-BR",
     defaultView: monthGridView.name,
     dayBoundaries: {
-      start: '06:00',
-      end: '18:00',
+      start: "06:00",
+      end: "18:00",
     },
   });
 

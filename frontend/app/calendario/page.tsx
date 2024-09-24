@@ -11,41 +11,27 @@ import {
 import "@schedule-x/theme-default/dist/index.css";
 import CalendarApp from "../components/calendarApp";
 import SchedulingCard from "./_components/schedulingCard";
+import { useCalendarEventDisclosure } from "./_components/hooks/useCalendarEventDisclosure";
+import { CalendarEventCard } from "./_components/dialog/CalendarEventDialog";
 
 export default function CalendarPage() {
-  const calendar = useNextCalendarApp({
-    views: [
-      createViewDay(),
-      createViewWeek(),
-      createViewMonthGrid(),
-      createViewMonthAgenda(),
-    ],
-    events: [
-      {
-        id: "1",
-        title: "Event 1",
-        start: "2023-12-16",
-        end: "2023-12-16",
-      },
-    ],
-  });
+  const { setSelectedDate } = useCalendarEventDisclosure();
 
   return (
     <main className="bg-main h-screen w-full  relative">
+      <CalendarEventCard />
       <article className="h-[92%] w-full space-y-5  pt-16 px-6 flex flex-col overflow-y-scroll">
         <div className="flex justify-between w-full items-center ">
           <h1 className="text-xl">Calendário</h1>
           {/* <Image src={arrowBack} width={25} height={25} alt="arrowBackIcon" /> */}
         </div>
         <section>
-          {/* <CalendarApp /> */}
+          <CalendarApp
+            onClickAgendaDate={(date) => {
+              setSelectedDate(date);
+            }}
+          />
         </section>
-
-        <section className="flex pb-2 space-x-2 items-center h-fit">
-          <SchedulingCard />
-        </section>
-
-        {/* <section className="w-full h-fit rounded-xl space-y-3 overflow-scroll flex flex-col pb-6"></section> */}
       </article>
       <NavBar />
     </main>

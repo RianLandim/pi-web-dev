@@ -1,63 +1,74 @@
-// "use client";
-// import { cardClientProperties } from "./components/test";
-// import {
-//   QueryClient,
-//   QueryClientProvider,
-//   useQuery,
-// } from "@tanstack/react-query";
-// import CardClient from "./components/test";
-// import { useState } from "react";
-// import AppMainBar from "../components/AppMainBar";
+"use client";
 
-// // Fetch function that returns the client cards
-// const fetchClientCards = async (): Promise<cardClientProperties[]> => {
-//   return new Promise((resolve) => {
-//     setTimeout(() => {
-//       resolve([
-//         { name: "Wesley", paymentStatus: true, date: "30/08/24" },
-//         { name: "Alice", paymentStatus: false, date: "29/08/24" },
-//         { name: "Bob", paymentStatus: true, date: "28/08/24" },
-//         { name: "Charlie", date: "27/08/24" }, // No paymentStatus, defaults to undefined
-//         { name: "Diana", paymentStatus: false, date: "26/08/24" },
-//       ]);
-//     }, 1000); // Simulate network delay
-//   });
-// };
+import Image from "next/image";
+import arrowBack from "../../public/arrowBack.svg";
+import magnifier from "../../public/magnifier.svg";
+import { useState } from "react";
+import NavBar from "../components/navBar";
+import CardClient from "./components/CardClientPayment";
 
-// // Component that renders the payment page
-// function PaymentPageContent() {
-//   const { data, error, isLoading } = useQuery({
-//     queryKey: ["clientCards"],
-//     queryFn: fetchClientCards,
-//   });
+export default function PaymentsPage() {
+  const [name, setName] = useState("");
 
-//   if (isLoading) return <div>Loading...</div>;
-//   if (error) return <div>Error loading client cards</div>;
+  const clients = [
+    { data: "12/12/1221", name: "Wesley", isPayed: true },
+    { data: "12/12/1221", name: "Maria", isPayed: false },
+    { data: "12/12/1221", name: "João", isPayed: true },
+    { data: "12/12/1221", name: "Carlos", isPayed: false },
+    { data: "12/12/1221", name: "Ana", isPayed: true },
+    { data: "12/12/1221", name: "Wesley", isPayed: false },
+  ];
 
-//   return (
-//     <div className="flex items-center border-red-500 justify-center h-screen w-full">
-//       <div className="w-fit border border-red-500 flex flex-col space-y-5 ">
-//         <h1>Status de Pagamento:</h1>
-//         {data?.map((card, index) => (
-//           <CardClient
-//             key={index}
-//             date={card.date}
-//             name={card.name}
-//             paymentStatus={card.paymentStatus}
-//           />
-//         ))}
-//       </div>
-//     </div>
-//   );
-// }
+  // Filtra a lista de clientes com base no nome digitado
+  const filteredClients = clients.filter((client) =>
+    client.name.toLowerCase().includes(name.toLowerCase())
+  );
 
-// export default function PaymentPage() {
-//   const [queryClient] = useState(() => new QueryClient());
+  return (
+    <main className="bg-main h-screen w-full pt-16 relative text-whiteApp">
+      <article className="h-[92%] w-full space-y-5 px-6 flex flex-col ">
+        <div className="flex justify-between w-full items-center ">
+          <h1 className="text-xl">Registro de Pagamento</h1>
+          <Image src={arrowBack} width={25} height={25} alt="arrowBackIcon" />
+        </div>
 
-//   return (
-//     <QueryClientProvider client={queryClient}>
-//       <PaymentPageContent />
-//       <AppMainBar />
-//     </QueryClientProvider>
-//   );
-// }
+        <section className="flex space-x-2 items-center h-fit">
+          <div className="flex w-full rounded-md bg-whiteApp">
+            <Image
+              className="bg-grayApp w-[15%] p-2 rounded-md"
+              src={magnifier}
+              width={25}
+              height={25}
+              alt="maginifierIcon"
+            />
+            <input
+              className="placeholder:pl-2 w-full text-black p-2 rounded-xl"
+              placeholder="Pesquise pelo nome..."
+              type="text"
+              name="name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+            />
+          </div>
+        </section>
+
+        {/* Lista de clientes filtrados */}
+        <section className="w-full h-fit rounded-xl space-y-3 overflow-scroll flex flex-col pb-6">
+          {filteredClients.length > 0 ? (
+            filteredClients.map((client, index) => (
+              <CardClient
+                key={index}
+                data={client.data}
+                name={client.name}
+                isPayed={client.isPayed}
+              />
+            ))
+          ) : (
+            <p>Nenhum cliente encontrado.</p>
+          )}
+        </section>
+        <NavBar />
+      </article>
+    </main>
+  );
+}
