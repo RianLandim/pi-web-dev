@@ -25,13 +25,13 @@ function CalendarApp({ onClickAgendaDate }: CalendarAppProps) {
     events: [
       {
         id: "1",
-        title: "Event 1",
+        title: "Maquineta",
         start: "2024-09-23",
         end: "2024-09-24",
       },
       {
         id: "2",
-        title: "Event 2",
+        title: "Fusqueta",
         start: "2024-09-23",
         end: "2024-09-24",
       },

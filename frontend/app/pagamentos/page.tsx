@@ -17,6 +17,12 @@ export default function PaymentsPage() {
     { data: "12/12/1221", name: "Carlos", isPayed: false },
     { data: "12/12/1221", name: "Ana", isPayed: true },
     { data: "12/12/1221", name: "Wesley", isPayed: false },
+    { data: "12/12/1221", name: "Wesley", isPayed: false },
+    { data: "12/12/1221", name: "Wesley", isPayed: false },
+    { data: "12/12/1221", name: "Wesley", isPayed: false },
+    { data: "12/12/1221", name: "Wesley", isPayed: false },
+    { data: "12/12/1221", name: "Wesley", isPayed: false },
+    { data: "12/12/1221", name: "Wesley", isPayed: false },
   ];
 
   // Filtra a lista de clientes com base no nome digitado
@@ -53,7 +59,7 @@ export default function PaymentsPage() {
         </section>
 
         {/* Lista de clientes filtrados */}
-        <section className="w-full h-fit rounded-xl space-y-3 overflow-scroll flex flex-col pb-6">
+        <section className="w-full h-fit rounded-xl space-y-3 overflow-y-auto flex flex-col pb-6">
           {filteredClients.length > 0 ? (
             filteredClients.map((client, index) => (
               <CardClient
