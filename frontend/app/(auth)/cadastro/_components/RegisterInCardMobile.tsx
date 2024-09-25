@@ -5,25 +5,13 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { Card } from "../../_components/card";
 import Link from "next/link";
-import { Input, InputPhone } from "../../../../package/ui/src/input";
+import { Input } from "../../../../package/ui/src/input";
 import { Button } from "../../../../package/ui/src/button";
-
-const formatPhone = (value: string) => {
-  // Remove tudo que não é dígito
-  value = value.replace(/\D/g, "");
-
-  // Aplica a máscara (11) 91234-5678
-  if (value.length <= 11) {
-    value = value.replace(/^(\d{2})(\d)/g, "($1) $2");
-    value = value.replace(/(\d{5})(\d)/, "$1-$2");
-  }
-
-  return value;
-};
+import { useHookFormMask } from "use-mask-input";
 
 const signInFormSchema = z.object({
   name: z.string().min(1, "Nome obrigatório"),
-  telefone: z
+  phone: z
     .string({ required_error: "Telefone obrigatório" })
     .min(11, "Telefone obrigatório"),
   email: z.string().min(1, "Email obrigatório").email("E-mail inválido"),
@@ -40,6 +28,7 @@ export default function RegisterInCardMobile() {
   } = useForm<SignInProps>({
     resolver: zodResolver(signInFormSchema),
   });
+  const registerWithMask = useHookFormMask(register);
 
   function submit(data: SignInProps) {
     console.log(data);
@@ -67,16 +56,14 @@ export default function RegisterInCardMobile() {
           {...register("email")}
         />
 
-        <InputPhone
+        <Input
           id="telefone"
-          placeholder={
-            (errors.telefone && errors.telefone.message) || "Telefone"
-          }
+          placeholder={(errors.phone && errors.phone.message) || "Telefone"}
           type="text"
           className={`pl-2 w-full h-10 ${
-            errors.telefone ? "placeholder:text-red-500" : "text-black"
+            errors.phone ? "placeholder:text-red-500" : "text-black"
           }`}
-          {...register("telefone")}
+          {...registerWithMask("phone", ["(99) 9 9999-9999"])}
         />
 
         <Input

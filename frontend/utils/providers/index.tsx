@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import {
   HydrationBoundary,
@@ -7,6 +7,7 @@ import {
 } from "@tanstack/react-query";
 import { ReactNode, useState } from "react";
 import SessionProvider from "./SessionProvider";
+import Next13ProgressBar from "next13-progressbar";
 
 type ProvidersProps = {
   children: ReactNode;
@@ -20,6 +21,7 @@ export default function Providers({ children }: ProvidersProps) {
       <QueryClientProvider client={queryClient}>
         <HydrationBoundary>{children}</HydrationBoundary>
       </QueryClientProvider>
+      <Next13ProgressBar height="4px" color="white" />
     </SessionProvider>
   );
 }

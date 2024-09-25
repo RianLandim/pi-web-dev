@@ -27,6 +27,7 @@ const InputPhone = React.forwardRef<HTMLInputElement, InputProps>(
   ({ placeholder, className, type, ...props }, ref) => {
     return (
       <InputMask
+        inputRef={ref}
         type={type}
         mask="(99) 9 9999-9999"
         placeholder={placeholder}

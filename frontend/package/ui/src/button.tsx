@@ -10,7 +10,8 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        default: "bg-main hover:bg-main/60 font-bold text-primary-foreground",
+        default:
+          "bg-main hover:bg-main/60 font-semibold text-primary-foreground border border-whiteApp",
         destructive:
           "bg-destructive text-destructive-foreground hover:bg-destructive/90",
         outline:
@@ -33,7 +34,7 @@ const buttonVariants = cva(
       variant: "default",
       size: "default",
     },
-  },
+  }
 );
 
 export interface ButtonProps
@@ -54,7 +55,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       isLoading,
       ...props
     },
-    ref,
+    ref
   ) => {
     return (
       <button
@@ -65,7 +66,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         {isLoading ? <LoadingIndicator /> : children}
       </button>
     );
-  },
+  }
 );
 Button.displayName = "Button";
 
