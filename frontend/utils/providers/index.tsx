@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import {
   HydrationBoundary,
@@ -7,6 +7,7 @@ import {
 } from "@tanstack/react-query";
 import { ReactNode, useState } from "react";
 import SessionProvider from "./SessionProvider";
+import { MantineProvider } from "@mantine/core";
 
 type ProvidersProps = {
   children: ReactNode;
@@ -17,9 +18,11 @@ export default function Providers({ children }: ProvidersProps) {
 
   return (
     <SessionProvider>
-      <QueryClientProvider client={queryClient}>
-        <HydrationBoundary>{children}</HydrationBoundary>
-      </QueryClientProvider>
+      <MantineProvider>
+        <QueryClientProvider client={queryClient}>
+          <HydrationBoundary>{children}</HydrationBoundary>
+        </QueryClientProvider>
+      </MantineProvider>
     </SessionProvider>
   );
 }

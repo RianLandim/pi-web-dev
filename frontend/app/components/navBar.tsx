@@ -13,22 +13,21 @@ export default function NavBar() {
       className="absolute w-full h-[8%] flex bg-main items-center
                drop-shadow-navBarShadow justify-between px-4 bottom-0 right-0"
     >
-      {/* <Link href={}></Link> */}
       <Wrench weight="fill" size={32} />
 
-      <Link href="/payments">
+      <Link href="/pagamentos">
         <CurrencyCircleDollar size={32} weight="fill" />
       </Link>
 
-      <Link href="/calendar">
+      <Link href="/calendario">
         <House size={32} weight="fill" />
       </Link>
 
-      <Link href="/calendar">
+      <Link href="/calendario">
         <ChatCircle size={32} weight="fill" />
       </Link>
 
-      <Link href="/clientdatabase">
+      <Link href="/clientes">
         <UserCircle size={32} weight="fill" />
       </Link>
     </section>
