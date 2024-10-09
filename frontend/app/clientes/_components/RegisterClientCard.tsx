@@ -28,7 +28,7 @@ export default function RegisterCardClient() {
   });
 
   const submit = (data: EditClientData) => {
-    console.log("data:", data);
+    console.log({ data });
   };
 
   return (
