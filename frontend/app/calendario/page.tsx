@@ -12,7 +12,7 @@ export default function CalendarPage() {
   return (
     <main className="bg-main h-screen w-full text-whiteApp relative">
       <CalendarEventCard />
-      <article className="h-[92%] w-full space-y-5  pt-16 px-6 flex flex-col overflow-y-auto">
+      <article className="h-[92%] w-full space-y-5 pt-16 px-6 flex flex-col overflow-y-auto">
         <div className="flex justify-between w-full items-center ">
           <h1 className="text-xl">Calendário</h1>
         </div>
