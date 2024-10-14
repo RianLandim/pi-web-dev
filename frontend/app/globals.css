@@ -55,3 +55,16 @@
 .sx-react-calendar-wrapper {
   max-width: 100%;
 }
+
+/* CALENDAR CSS */
+.event-dot-high {
+  background-color: red; /* High priority -> Red */
+}
+
+.event-dot-medium {
+  background-color: yellow; /* Medium priority -> Yellow */
+}
+
+.event-dot-low {
+  background-color: green; /* Low priority -> Green */
+}

@@ -20,19 +20,54 @@ function CalendarApp({ onClickAgendaDate }: CalendarAppProps) {
     {
       id: "1",
       title: "Maquineta",
-      start: "2024-10-11",
-      end: "2024-10-11",
+      start: "2024-10-12",
+      end: "2024-10-12",
+      priority: "high",
     },
     {
       id: "2",
       title: "Fusqueta",
-      start: "2024-10-11",
-      end: "2024-10-11",
+      start: "2024-10-12",
+      end: "2024-10-12",
+      priority: "low",
+    },
+    {
+      id: "3",
+      title: "Fusqueta",
+      start: "2024-10-12",
+      end: "2024-10-12",
+    },
+    {
+      id: "4",
+      title: "Fusqueta",
+      start: "2024-10-12",
+      end: "2024-10-12",
     },
   ];
 
   const calendar = useNextCalendarApp({
     callbacks: {
+      onEventClick(calendarEvent) {
+        console.log("onEventClick", calendarEvent);
+      },
+
+      // onRender($app) {
+      //   const eventElements = document.querySelectorAll(".sx-event");
+      //   eventElements.forEach((eventElement) => {
+      //     const eventId = eventElement.dataset.id;
+      //     const event = events.find((e) => e.id === eventId);
+
+      //     if (event && event.priority) {
+      //       if (event.priority === "high") {
+      //         eventElement.classList.add("event-dot-high");
+      //       } else if (event.priority === "medium") {
+      //         eventElement.classList.add("event-dot-medium");
+      //       } else if (event.priority === "low") {
+      //         eventElement.classList.add("event-dot-low");
+      //       }
+      //     }
+      //   });
+      // },
       onClickAgendaDate: (date: string) => {
         // Check if there is at least one event on the clicked date
         const hasEventOnDate = events.some(
@@ -47,7 +82,9 @@ function CalendarApp({ onClickAgendaDate }: CalendarAppProps) {
     },
     views: [monthGridView, dayView, weekView, monthAgendaView],
     events,
+    // timePointsPerDay: 3,
     isResponsive: true,
+
     locale: "pt-BR",
     defaultView: monthGridView.name,
     dayBoundaries: {
