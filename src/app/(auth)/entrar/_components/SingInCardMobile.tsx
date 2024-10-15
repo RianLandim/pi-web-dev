@@ -5,6 +5,7 @@ import { z } from "zod";
 import Link from "next/link";
 import { useForm, zodResolver } from "@mantine/form";
 import { Button, TextInput, PasswordInput, Stack, rem } from "@mantine/core";
+import { signIn } from "next-auth/react";
 
 const signInFormSchema = z.object({
   email: z
@@ -24,7 +25,7 @@ export default function SignInCardMobile() {
   });
 
   const submit = (data: SignInProps) => {
-    console.log(data);
+    void signIn("credentials", undefined, data);
   };
 
   return (

@@ -26,6 +26,9 @@ dependencies:
   '@t3-oss/env-nextjs':
     specifier: ^0.10.1
     version: 0.10.1(typescript@5.6.3)(zod@3.23.8)
+  '@tabler/icons-react':
+    specifier: ^3.19.0
+    version: 3.19.0(react@18.3.1)
   '@tanstack/react-query':
     specifier: ^5.50.0
     version: 5.59.15(react@18.3.1)
@@ -50,6 +53,9 @@ dependencies:
   next-auth:
     specifier: ^4.24.7
     version: 4.24.8(next@14.2.15)(react-dom@18.3.1)(react@18.3.1)
+  nuqs:
+    specifier: ^1.20.0
+    version: 1.20.0(next@14.2.15)
   react:
     specifier: ^18.3.1
     version: 18.3.1
@@ -563,6 +569,19 @@ packages:
       '@t3-oss/env-core': 0.10.1(typescript@5.6.3)(zod@3.23.8)
       typescript: 5.6.3
       zod: 3.23.8
+    dev: false
+
+  /@tabler/icons-react@3.19.0(react@18.3.1):
+    resolution: {integrity: sha512-AqEWGI0tQWgqo6ZjMO5yJ9sYT8oXLuAM/up0hN9iENS6IdtNZryKrkNSiMgpwweNTpl8wFFG/dAZ959S91A/uQ==}
+    peerDependencies:
+      react: '>= 16'
+    dependencies:
+      '@tabler/icons': 3.19.0
+      react: 18.3.1
+    dev: false
+
+  /@tabler/icons@3.19.0:
+    resolution: {integrity: sha512-A4WEWqpdbTfnpFEtwXqwAe9qf9sp1yRPvzppqAuwcoF0q5YInqB+JkJtSFToCyBpPVeLxJUxxkapLvt2qQgnag==}
     dev: false
 
   /@tanstack/query-core@5.59.13:
@@ -2389,6 +2408,10 @@ packages:
     engines: {node: '>=16 || 14 >=14.17'}
     dev: true
 
+  /mitt@3.0.1:
+    resolution: {integrity: sha512-vKivATfr97l2/QBCYAkXYDbrIWPM2IIKEl7YPhjCvKlG3kE2gm+uBo6nEXK3M5/Ffh/FLpKExzOQ3JJoJGFKBw==}
+    dev: false
+
   /ms@2.1.3:
     resolution: {integrity: sha512-6FlzubTLZG3J2a/NVCAleEhjzq5oxgHyaCU9yYXvcLsvoVaHJq/s5xXI6/XXP6tz7R9xAOtHnSO/tXtF3WRTlA==}
     dev: true
@@ -2484,6 +2507,15 @@ packages:
     resolution: {integrity: sha512-6eZs5Ls3WtCisHWp9S2GUy8dqkpGi4BVSz3GaqiE6ezub0512ESztXUwUB6C6IKbQkY2Pnb/mD4WYojCRwcwLA==}
     engines: {node: '>=0.10.0'}
     dev: true
+
+  /nuqs@1.20.0(next@14.2.15):
+    resolution: {integrity: sha512-nGVfv7eWMNxAzOJ9n8ARTo6ObqeEr1ETYZ+dIMCg/VfGUoZoPrqyTOndIvQIgUzK3pIC41mTXg10JJxh9ziEhw==}
+    peerDependencies:
+      next: '>=13.4 <14.0.2 || ^14.0.3'
+    dependencies:
+      mitt: 3.0.1
+      next: 14.2.15(react-dom@18.3.1)(react@18.3.1)
+    dev: false
 
   /oauth4webapi@2.17.0:
     resolution: {integrity: sha512-lbC0Z7uzAFNFyzEYRIC+pkSVvDHJTbEW+dYlSBAlCYDe6RxUkJ26bClhk8ocBZip1wfI9uKTe0fm4Ib4RHn6uQ==}

@@ -1,15 +1,11 @@
 "use client";
 
-import Image from "next/image";
-import arrowBack from "../../public/arrowBack.svg";
-
 import { useRef, useState } from "react";
 import NavBar from "../_components/navBar";
-import { PlusCircle } from "@phosphor-icons/react";
 
 import RegisterCardClient from "./_components/RegisterClientCard";
 import { TextInput, Text, Stack, Group, Card } from "@mantine/core";
-import { IconSearch } from "@tabler/icons-react";
+import { IconSearch, IconArrowLeft, IconPlus } from "@tabler/icons-react";
 import { parseAsString, useQueryState } from "nuqs";
 
 interface Client {
@@ -62,7 +58,7 @@ export default function PaymentsPage() {
   );
 
   return (
-    <main className="bg-main relative h-screen w-full pt-16">
+    <main className="relative h-screen w-full bg-main pt-16">
       {isRegisterCardOpen && (
         <div className="absolute left-0 top-0 z-10 flex h-screen w-[100%] items-center justify-center bg-black bg-opacity-50">
           <div className="w-[90%] sm:w-[60%] md:w-[40%]" ref={cardRef}>
@@ -74,7 +70,7 @@ export default function PaymentsPage() {
       <article className="flex h-[92%] w-full flex-col space-y-5 px-6">
         <div className="flex w-full items-center justify-between">
           <h1 className="text-xl font-bold text-white">Base de Clientes</h1>
-          <Image src={arrowBack} width={25} height={25} alt="arrowBackIcon" />
+          <IconArrowLeft size={25} color="white" />
         </div>
 
         <section className="flex h-fit items-center space-x-2">
@@ -88,9 +84,9 @@ export default function PaymentsPage() {
             />
           </div>
 
-          <PlusCircle
+          <IconPlus
             size={32}
-            className="fill-white"
+            className="text-white"
             onClick={() => setIsRegisterCardOpen(true)}
           />
         </section>
