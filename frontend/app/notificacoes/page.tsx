@@ -5,7 +5,7 @@ import arrowBack from "../../public/arrowBack.svg";
 import magnifier from "../../public/magnifier.svg";
 import { useState } from "react";
 import NavBar from "../components/navBar";
-import CardNotification from "../pagamentos/components/CardNotification";
+import CardNotification from "./components/CardNotification";
 
 export default function PaymentsPage() {
   const [name, setName] = useState("");

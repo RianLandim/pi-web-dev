@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 
 interface cardClientProps {
   name: string;
@@ -35,7 +36,10 @@ export default function DetailedCardClient(props: cardClientProps) {
   } = useForm<EditClientData>({
     resolver: zodResolver(EditClientDataFormSchema),
   });
+
   const [isEditing, setIsEditing] = useState<boolean>(props.isEditing || false);
+
+  const router = useRouter();
 
   useEffect(() => {
     reset(props);
@@ -45,6 +49,10 @@ export default function DetailedCardClient(props: cardClientProps) {
   const toggleEditing = () => {
     setIsEditing((prev) => !prev);
     console.log(isEditing);
+  };
+
+  const toggleSeePayments = () => {
+    router.push("/pagamentos");
   };
 
   return (
@@ -113,7 +121,14 @@ export default function DetailedCardClient(props: cardClientProps) {
           <Trash weight="fill" size={31} color="#F34213" />
         </div>
       ) : (
-        <Button onClick={toggleEditing}>Editar</Button>
+        <div className="flex space-x-3">
+          <Button className="w-1/2" onClick={toggleEditing}>
+            Editar
+          </Button>
+          <Button className="w-1/2" onClick={toggleSeePayments}>
+            Pagamentos
+          </Button>
+        </div>
       )}
     </section>
   );
