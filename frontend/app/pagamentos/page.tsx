@@ -5,7 +5,7 @@ import arrowBack from "../../public/arrowBack.svg";
 import magnifier from "../../public/magnifier.svg";
 import { useState } from "react";
 import NavBar from "../components/navBar";
-import CardClient from "./components/CardNotification";
+import PaymentCard from "./components/PaymentCard";
 
 export default function PaymentsPage() {
   const [name, setName] = useState("");
@@ -62,7 +62,7 @@ export default function PaymentsPage() {
         <section className="w-full h-fit rounded-xl space-y-3 overflow-y-auto flex flex-col pb-6">
           {filteredClients.length > 0 ? (
             filteredClients.map((client, index) => (
-              <CardClient
+              <PaymentCard
                 key={index}
                 data={client.data}
                 name={client.name}

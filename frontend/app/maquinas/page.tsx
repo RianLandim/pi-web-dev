@@ -1,45 +1,46 @@
 "use client";
-
 import Image from "next/image";
-import arrowBack from "../../public/arrowBack.svg";
 import magnifier from "../../public/magnifier.svg";
 import { useState } from "react";
 import NavBar from "../components/navBar";
-import CardNotification from "../pagamentos/components/PaymentCard";
+import MachineCard from "./components/MachineCard";
+import { PlusCircle } from "@phosphor-icons/react";
+import arrowBack from "../../public/arrowBack.svg";
+import { CalendarEventCard } from "./components/dialog/machineEventDialog";
 
-export default function PaymentsPage() {
+export default function MachinesPage() {
   const [name, setName] = useState("");
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
 
-  const notifications = [
-    { data: "12/12/1221", name: "Wesley", isPayed: true },
-    { data: "12/12/1221", name: "Maria", isPayed: false },
-    { data: "12/12/1221", name: "João", isPayed: true },
-    { data: "12/12/1221", name: "Carlos", isPayed: false },
-    { data: "12/12/1221", name: "Ana", isPayed: true },
-    { data: "12/12/1221", name: "Wesley", isPayed: false },
-    { data: "12/12/1221", name: "Wesley", isPayed: false },
-    { data: "12/12/1221", name: "Wesley", isPayed: false },
-    { data: "12/12/1221", name: "Wesley", isPayed: false },
-    { data: "12/12/1221", name: "Wesley", isPayed: false },
-    { data: "12/12/1221", name: "Wesley", isPayed: false },
-    { data: "12/12/1221", name: "Wesley", isPayed: false },
+  const machines = [
+    {
+      machineName: "Geladeira Samsung",
+      clientName: "Wesley",
+      problem:
+        "Loavravwbtwb twbwbwneyne eenenenwny enwnenewnwene enenenenetnetn enenenenten et net net ne nen e e.",
+    },
   ];
 
   // Filtra a lista de clientes com base no nome digitado
-  const filteredNotifications = notifications.filter((notifications) =>
-    notifications.name.toLowerCase().includes(name.toLowerCase())
+  const filteredMachines = machines.filter((machine) =>
+    machine.machineName.toLowerCase().includes(name.toLowerCase())
   );
 
   return (
     <main className="bg-main h-screen w-full pt-16 relative text-whiteApp">
+      <CalendarEventCard
+        isDialogOpen={isDialogOpen}
+        setIsDialogOpen={setIsDialogOpen}
+      />
       <article className="h-[92%] w-full space-y-5 px-6 flex flex-col ">
         <div className="flex justify-between w-full items-center ">
-          <h1 className="text-xl">Notificações</h1>
+          {/* Título da Página */}
+          <h1 className="text-xl">Máquinas</h1>
           <Image src={arrowBack} width={25} height={25} alt="arrowBackIcon" />
         </div>
 
         <section className="flex space-x-2 items-center h-fit">
-          <div className="flex w-full rounded-md bg-whiteApp">
+          <div className="flex w-[85%] rounded-md bg-whiteApp">
             <Image
               className="bg-grayApp w-[15%] p-2 rounded-md"
               src={magnifier}
@@ -56,21 +57,29 @@ export default function PaymentsPage() {
               onChange={(e) => setName(e.target.value)}
             />
           </div>
+          {/* Botão que abre o card */}
+          <PlusCircle
+            size={32}
+            className="fill-whiteApp"
+            onClick={() => {
+              setIsDialogOpen(true);
+            }}
+          />
         </section>
 
         {/* Lista de clientes filtrados */}
         <section className="w-full h-fit rounded-xl space-y-3 overflow-y-auto flex flex-col pb-6">
-          {notifications.length > 0 ? (
-            notifications.map((notifications, index) => (
-              <CardNotification
+          {filteredMachines.length > 0 ? (
+            filteredMachines.map((machine, index) => (
+              <MachineCard
                 key={index}
-                data={notifications.data}
-                name={notifications.name}
-                isPayed={notifications.isPayed}
+                machineName={machine.machineName}
+                clientName={machine.clientName}
+                problem={machine.problem}
               />
             ))
           ) : (
-            <p>Nenhum cliente encontrado.</p>
+            <p>Nenhum máquina encontrado.</p>
           )}
         </section>
         <NavBar />
