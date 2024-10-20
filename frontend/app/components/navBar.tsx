@@ -14,7 +14,10 @@ export default function NavBar() {
                drop-shadow-navBarShadow justify-between px-4 bottom-0 right-0 text-white"
     >
       {/* <Link href={}></Link> */}
-      <Wrench weight="fill" size={32} />
+
+      <Link href="/maquinas">
+        <Wrench weight="fill" size={32} />
+      </Link>
 
       <Link href="/pagamentos">
         <CurrencyCircleDollar size={32} weight="fill" />

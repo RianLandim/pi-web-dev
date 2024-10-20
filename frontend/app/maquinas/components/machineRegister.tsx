@@ -1,20 +1,19 @@
-import { Input } from "../../../package/ui/src/input";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { Button } from "../../../package/ui/src/button";
+import { Input } from "../../../package/ui/src/input";
 
 const MachineRegistrationFormSchema = z.object({
   machineType: z.string().min(1, "Nome obrigatório"),
   problem: z.string().min(1, "Campo Obrigatório"),
   TypeOfPiece: z.string().min(1, "Campo Obrigatório"),
-  description: z.string().min(1, "Campo Obrigatório"),
+  description: z.string(),
   quantity: z
-    .string() // Accept it as a string first
-    .min(1, "Digite um número")
-    .transform((val) => parseInt(val, 10)) // Then transform it to a number
-    .refine((val) => !isNaN(val) && val > 0, {
-      message: "Quantidade inválida",
+    .string()
+    .transform((value) => Number(value)) // Convert the string to a number
+    .refine((value) => !isNaN(value) && value > 0, {
+      message: "Requer um número",
     }),
 });
 
@@ -22,21 +21,21 @@ type RegisterMachine = z.infer<typeof MachineRegistrationFormSchema>;
 
 export default function MachineRegisterForm() {
   const {
-    handleSubmit,
     register,
+    handleSubmit,
     formState: { errors },
   } = useForm<RegisterMachine>({
     resolver: zodResolver(MachineRegistrationFormSchema),
   });
 
-  const submit = (data: any) => {
+  const submit = (data: RegisterMachine) => {
     console.log("data:", data);
   };
 
   return (
     <section>
-      <main className=" w-full relative text-whiteApp">
-        <article className="h-[92%] w-full space-y-5 flex flex-col ">
+      <main className="w-full relative text-whiteApp">
+        <article className="h-[92%] w-full space-y-5 flex flex-col">
           <form
             onSubmit={handleSubmit(submit)}
             className="w-full flex flex-col space-y-3 h-fit justify-between"
@@ -76,9 +75,26 @@ export default function MachineRegisterForm() {
               <div className="flex flex-col space-y-2">
                 <p className="text-sm font-light">Tipo de peça</p>
                 <Input
+                  id="TypeOfPiece"
+                  placeholder={
+                    (errors.TypeOfPiece && errors.TypeOfPiece.message) || "Peça"
+                  }
+                  type="text"
+                  className={`pl-2 ${
+                    errors.TypeOfPiece
+                      ? "placeholder:text-red-500"
+                      : "text-black"
+                  }`}
+                  {...register("TypeOfPiece")}
+                />
+              </div>
+              <div className="flex flex-col space-y-2">
+                <p className="text-sm font-light">Descrição</p>
+                <Input
                   id="description"
                   placeholder={
-                    (errors.description && errors.description.message) || "Peça"
+                    (errors.description && errors.description.message) ||
+                    "Descrição"
                   }
                   type="text"
                   className={`pl-2 ${
@@ -96,11 +112,9 @@ export default function MachineRegisterForm() {
                   placeholder={
                     (errors.quantity && errors.quantity.message) || "2"
                   }
-                  type="number"
+                  type="text"
                   className={`pl-2 ${
-                    errors.description
-                      ? "placeholder:text-red-500"
-                      : "text-black"
+                    errors.quantity ? "placeholder:text-red-500" : "text-black"
                   }`}
                   {...register("quantity")}
                 />
