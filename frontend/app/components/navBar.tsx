@@ -27,7 +27,7 @@ export default function NavBar() {
         <House size={32} weight="fill" />
       </Link>
 
-      <Link href="/baseDeClientes">
+      <Link href="/notificacoes">
         <ChatCircle size={32} weight="fill" />
       </Link>
 
