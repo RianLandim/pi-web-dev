@@ -8,7 +8,7 @@ import {
 } from "~/server/api/trpc";
 import { createUserValidator } from "~/utils/validators/create-user-validator";
 
-export const postRouter = createTRPCRouter({
+export const userRouter = createTRPCRouter({
   create: publicProcedure
     .input(createUserValidator)
     .query(async ({ ctx, input: data }) => {
