@@ -113,7 +113,7 @@ export default function MachineRegisterForm() {
                   ))}
                 </datalist>
 
-                <p className="text-sm font-light">Nome do CLiente</p>
+                <p className="text-sm font-light">Nome do Cliente</p>
                 <Input
                   id="clientName"
                   placeholder={
