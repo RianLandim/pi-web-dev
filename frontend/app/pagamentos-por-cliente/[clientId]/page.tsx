@@ -106,7 +106,7 @@ export default function ClientPaymentsPage({
         </div>
 
         {/* Lista de clientes filtrados */}
-        <section className="w-full h-fit rounded-xl space-y-3 overflow-y-auto flex flex-col pb-6">
+        <section className="w-full h-fit rounded-xl space-y-3 overflow-y-auto flex flex-col">
           {sortedClients.map((client, index) => (
             <EspecificPaymentCard
               key={index}
