@@ -7,10 +7,10 @@ import { useState } from "react";
 
 const MachineRegistrationFormSchema = z.object({
   machineType: z.string().min(1, "Nome obrigatório"),
-  problem: z.string().min(1, "Campo Obrigatório"),
+  problemDescription: z.string().min(1, "Campo Obrigatório"),
   TypeOfPiece: z.string().min(1, "Campo Obrigatório"),
   clientName: z.string().min(1, "Nome obrigatório"),
-  description: z.string(),
+  otherInformations: z.string(),
   quantity: z
     .string()
     .transform((value) => Number(value)) // Convert the string to a number
@@ -75,15 +75,15 @@ export default function MachineRegisterForm() {
               <div className="flex flex-col space-y-2">
                 <p className="text-sm font-light">Problema identificado</p>
                 <Input
-                  id="problem"
+                  id="problemDescription"
                   placeholder={
-                    (errors.problem && errors.problem.message) || "Gás"
+                    (errors.problemDescription && errors.problemDescription.message) || "Gás"
                   }
                   type="text"
                   className={`pl-2 ${
-                    errors.problem ? "placeholder:text-red-500" : "text-black"
+                    errors.problemDescription ? "placeholder:text-red-500" : "text-black"
                   }`}
-                  {...register("problem")}
+                  {...register("problemDescription")}
                 />
               </div>
 
@@ -133,18 +133,18 @@ export default function MachineRegisterForm() {
               <div className="flex flex-col space-y-2">
                 <p className="text-sm font-light">Descrição</p>
                 <Input
-                  id="description"
+                  id="otherInformations"
                   placeholder={
-                    (errors.description && errors.description.message) ||
+                    (errors.otherInformations && errors.otherInformations.message) ||
                     "Descrição"
                   }
                   type="text"
                   className={`pl-2 ${
-                    errors.description
+                    errors.otherInformations
                       ? "placeholder:text-red-500"
                       : "text-black"
                   }`}
-                  {...register("description")}
+                  {...register("otherInformations")}
                 />
               </div>
               <div className="flex flex-col space-y-2">

@@ -14,16 +14,40 @@ export default function MachinesPage() {
 
   const machines = [
     {
-      machineName: "Geladeira Samsung",
+      machineType: "Geladeira Samsung",
+      TypeOfPiece: "Cilindro de gás",
       clientName: "Wesley",
-      problem:
+      problemDescription:
+        "Loavravwbtwb twbwbwneyne eenenenwny enwnenewnwene enenenenetnetn enenenenten et net net ne nen e e.",
+      quantity: 2,
+      otherInformations:
+        "Loavravwbtwb twbwbwneyne eenenenwny enwnenewnwene enenenenetnetn enenenenten et net net ne nen e e.",
+    },
+    {
+      machineType: "Máquina de lavar Brastemp",
+      TypeOfPiece: "Cilindro de gás",
+      clientName: "Wesley",
+      problemDescription:
+        "Loavravwbtwb twbwbwneyne eenenenwny enwnenewnwene enenenenetnetn enenenenten et net net ne nen e e.",
+      quantity: 2,
+      otherInformations:
+        "Loavravwbtwb twbwbwneyne eenenenwny enwnenewnwene enenenenetnetn enenenenten et net net ne nen e e.",
+    },
+    {
+      machineType: "Frigobar Eco",
+      TypeOfPiece: "Cilindro de gás",
+      clientName: "Wesley",
+      problemDescription:
+        "Loavravwbtwb twbwbwneyne eenenenwny enwnenewnwene enenenenetnetn enenenenten et net net ne nen e e.",
+      quantity: 2,
+      otherInformations:
         "Loavravwbtwb twbwbwneyne eenenenwny enwnenewnwene enenenenetnetn enenenenten et net net ne nen e e.",
     },
   ];
 
   // Filtra a lista de clientes com base no nome digitado
   const filteredMachines = machines.filter((machine) =>
-    machine.machineName.toLowerCase().includes(name.toLowerCase())
+    machine.machineType.toLowerCase().includes(name.toLowerCase())
   );
 
   return (
@@ -72,10 +96,13 @@ export default function MachinesPage() {
           {filteredMachines.length > 0 ? (
             filteredMachines.map((machine, index) => (
               <MachineCard
+                TypeOfPiece={machine.TypeOfPiece}
+                quantity={machine.quantity}
                 key={index}
-                machineName={machine.machineName}
+                machineType={machine.machineType}
                 clientName={machine.clientName}
-                problem={machine.problem}
+                problemDescription={machine.problemDescription}
+                otherInformations={machine.otherInformations}
               />
             ))
           ) : (
