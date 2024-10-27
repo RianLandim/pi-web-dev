@@ -1,12 +1,12 @@
 "use client";
 
 import { useRef, useState } from "react";
-import NavBar from "../_components/navBar";
 
 import RegisterCardClient from "./_components/RegisterClientCard";
 import { TextInput, Text, Stack, Group, Card } from "@mantine/core";
 import { IconSearch, IconArrowLeft, IconPlus } from "@tabler/icons-react";
 import { parseAsString, useQueryState } from "nuqs";
+import NavBar from "~/app/_components/navBar";
 
 interface Client {
   description: string;

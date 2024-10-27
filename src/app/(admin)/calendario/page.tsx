@@ -1,5 +1,6 @@
 "use client";
-import NavBar from "../_components/navBar";
+
+import NavBar from "~/app/_components/navBar";
 
 export default function CalendarPage() {
   return (
