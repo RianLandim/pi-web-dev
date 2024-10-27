@@ -2,7 +2,7 @@
 
 import { useRef, useState } from "react";
 
-import RegisterCardClient from "./_components/RegisterClientCard";
+import RegisterCardClient from "./_components/RegisterMachineCard";
 import { TextInput, Text, Stack, Group, Card, Skeleton } from "@mantine/core";
 import { IconSearch, IconArrowLeft, IconCirclePlus } from "@tabler/icons-react";
 import { parseAsString, useQueryState } from "nuqs";
@@ -37,7 +37,7 @@ export default function PaymentsPage() {
 
       <article className="flex h-[92%] w-full flex-col space-y-5 px-6">
         <div className="flex w-full items-center justify-between">
-          <h1 className="text-xl font-bold text-white">Clientes</h1>
+          <h1 className="text-xl font-bold text-white">Máquinas </h1>
           <IconArrowLeft size={25} color="white" />
         </div>
 
