@@ -11,4 +11,10 @@ export const machineRouter = createTRPCRouter({
         },
       });
     }),
+
+  list: publicProcedure.query(async ({ ctx }) => {
+    const machines = await ctx.db.machine.findMany();
+
+    return machines;
+  }),
 });

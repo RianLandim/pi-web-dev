@@ -28,3 +28,7 @@ export const createMachineValidator = z.object({
     .min(1, REQUIRED_ERROR_MESSAGE)
     .max(155, MAX_CHAR_ERROR_MESSAGE),
 });
+
+export type CreateMachineValidatorProps = z.infer<
+  typeof createMachineValidator
+>;
