@@ -10,7 +10,7 @@ interface cardClientProps {
   value: string;
 }
 
-export default function paymentCard(props: cardClientProps) {
+export default function GeneralPaymentCard(props: cardClientProps) {
   return (
     <section className="bg-cardClientBG flex w-full rounded-xl px-4 py-3 h-fit">
       <div className="w-full h-full">

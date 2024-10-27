@@ -124,6 +124,7 @@ export default function PaymentsPage() {
               <div key={index} onClick={() => setSelectedClient(client.name)}>
                 {selectedClient === client.name ? (
                   <DetailedCardClient
+                    clientId="1"
                     name={client.name}
                     data={client.data}
                     email={client.email}

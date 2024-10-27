@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
 interface cardClientProps {
+  clientId: string; // Add this line for unique client identification
   name: string;
   data: string;
   email: string;
@@ -48,11 +49,11 @@ export default function DetailedCardClient(props: cardClientProps) {
   // Function to toggle editing mode
   const toggleEditing = () => {
     setIsEditing((prev) => !prev);
-    console.log(isEditing);
+    // console.log(isEditing);
   };
 
   const toggleSeePayments = () => {
-    router.push("/pagamentos");
+    router.push(`/pagamentos-por-cliente/${props.clientId}`);
   };
 
   return (

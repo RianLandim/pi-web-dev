@@ -1,14 +1,19 @@
 "use client";
 
 import Image from "next/image";
-import arrowBack from "../../public/arrowBack.svg";
-import magnifier from "../../public/magnifier.svg";
 import { useState } from "react";
+import arrowBack from "@/public/arrowBack.svg";
 import NavBar from "../components/navBar";
-import CardClient from "./components/paymentCard";
+import GeneralPaymentCard from "./components/GeneralPaymentCard";
 
-export default function PaymentsPage() {
+export default function ClientPaymentsPage({
+  params,
+}: {
+  params: { clientId: string };
+}) {
   const [name, setName] = useState("");
+
+  // if (!clientId) return <div>Loading...</div>; // Loading state
 
   const clients = [
     {
@@ -76,35 +81,16 @@ export default function PaymentsPage() {
     <main className="bg-main h-screen w-full pt-16 relative text-whiteApp">
       <article className="h-[92%] w-full space-y-5 px-6 flex flex-col ">
         <div className="flex justify-between w-full items-center">
-          <h1 className="text-xl">Registro de Pagamento</h1>
+          {/*  I want to write the name of the cliente below */}
+          <h1 className="text-xl">Pagamento(s) do !client name! </h1>
           <Image src={arrowBack} width={25} height={25} alt="arrowBackIcon" />
         </div>
-
-        {/* <section className="flex space-x-2 items-center h-fit">
-          <div className="flex w-full rounded-md bg-whiteApp">
-            <Image
-              className="bg-grayApp w-[15%] p-2 rounded-md"
-              src={magnifier}
-              width={25}
-              height={25}
-              alt="maginifierIcon"
-            />
-            <input
-              className="placeholder:pl-2 w-full text-black p-2 rounded-xl"
-              placeholder="Pesquise pelo nome..."
-              type="text"
-              name="name"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-            />
-          </div>
-        </section> */}
 
         {/* Lista de clientes filtrados */}
         <section className="w-full h-fit rounded-xl space-y-3 overflow-y-auto flex flex-col pb-6">
           {filteredClients.length > 0 ? (
             filteredClients.map((client, index) => (
-              <CardClient
+              <GeneralPaymentCard
                 paymentDeadline={client.paymentDeadline}
                 value={client.value}
                 key={index}
