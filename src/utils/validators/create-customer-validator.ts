@@ -36,5 +36,14 @@ export const createCustomerValidator = z.object({
     .string({ required_error: REQUIRED_ERROR_MESSAGE })
     .min(1, REQUIRED_ERROR_MESSAGE)
     .max(155, MAX_CHAR_ERROR_MESSAGE),
+  email: z
+    .string({ required_error: REQUIRED_ERROR_MESSAGE })
+    .email("Digite um e-mail valido")
+    .min(1, REQUIRED_ERROR_MESSAGE)
+    .max(155, MAX_CHAR_ERROR_MESSAGE),
   address: addressValidator,
 });
+
+export type CreateCustomerValidatorProps = z.infer<
+  typeof createCustomerValidator
+>;

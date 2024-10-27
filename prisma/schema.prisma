@@ -20,6 +20,7 @@ model Customer {
 
     name    String
     contact String
+    email   String?
 
     users     User[]
     services  Service[]

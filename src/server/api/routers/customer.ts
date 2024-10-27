@@ -1,10 +1,10 @@
 import { createCustomerValidator } from "~/utils/validators/create-customer-validator";
-import { createTRPCRouter, protectedProcedure } from "../trpc";
+import { createTRPCRouter, publicProcedure } from "../trpc";
 import { z } from "zod";
 import { TRPCError } from "@trpc/server";
 
 export const customerRouter = createTRPCRouter({
-  create: protectedProcedure
+  create: publicProcedure
     .input(createCustomerValidator)
     .mutation(async ({ ctx, input: { address, ...customer } }) => {
       await ctx.db.$transaction(async (tx) => {
@@ -21,13 +21,13 @@ export const customerRouter = createTRPCRouter({
       });
     }),
 
-  list: protectedProcedure.query(async ({ ctx }) => {
+  list: publicProcedure.query(async ({ ctx }) => {
     const customers = await ctx.db.customer.findMany();
 
     return customers;
   }),
 
-  listById: protectedProcedure
+  listById: publicProcedure
     .input(
       z.object({
         id: z.string(),

@@ -3,21 +3,12 @@
 import { useRef, useState } from "react";
 
 import RegisterCardClient from "./_components/RegisterClientCard";
-import { TextInput, Text, Stack, Group, Card } from "@mantine/core";
+import { TextInput, Text, Stack, Group, Card, Skeleton } from "@mantine/core";
 import { IconSearch, IconArrowLeft, IconPlus } from "@tabler/icons-react";
 import { parseAsString, useQueryState } from "nuqs";
 import NavBar from "~/app/_components/navBar";
-
-interface Client {
-  description: string;
-  name: string;
-  data: string;
-  email: string;
-  phone: string;
-  address: string;
-  scheduledVisits: string;
-  visitsMade: string;
-}
+import { api } from "~/trpc/react";
+import { match, P } from "ts-pattern";
 
 export default function PaymentsPage() {
   const [searchName, setSearchName] = useQueryState(
@@ -30,39 +21,16 @@ export default function PaymentsPage() {
   const [isRegisterCardOpen, setIsRegisterCardOpen] = useState(false);
   const cardRef = useRef<HTMLDivElement | null>(null);
 
-  const clients: Client[] = [
-    {
-      description: "Manutenção de geladeira",
-      name: "Wesley",
-      data: "12/12/2022",
-      email: "wesley@mail.com",
-      phone: "123456789",
-      address: "Rua A, 123",
-      scheduledVisits: "2",
-      visitsMade: "1",
-    },
-    {
-      description: "Manutenção de geladeira",
-      name: "Maria",
-      data: "10/10/2022",
-      email: "maria@mail.com",
-      phone: "987654321",
-      address: "Rua B, 456",
-      scheduledVisits: "3",
-      visitsMade: "3",
-    },
-  ];
-
-  const filteredClients = clients.filter((client) =>
-    client.name.toLowerCase().includes(searchName.toLowerCase()),
-  );
+  const customersQuery = api.customer.list.useQuery(undefined, {
+    staleTime: Infinity,
+  });
 
   return (
     <main className="relative h-screen w-full bg-main pt-16">
       {isRegisterCardOpen && (
         <div className="absolute left-0 top-0 z-10 flex h-screen w-[100%] items-center justify-center bg-black bg-opacity-50">
           <div className="w-[90%] sm:w-[60%] md:w-[40%]" ref={cardRef}>
-            <RegisterCardClient />
+            <RegisterCardClient setIsRegisterCardOpen={setIsRegisterCardOpen} />
           </div>
         </div>
       )}
@@ -92,27 +60,63 @@ export default function PaymentsPage() {
         </section>
 
         <section className="flex h-fit w-full flex-col space-y-3 overflow-scroll rounded-xl pb-6">
-          <Stack gap="md">
-            {filteredClients.map((item, index) => (
-              <Card
-                key={index.toString()}
-                shadow="md"
-                padding="md"
-                radius="md"
-                withBorder
-              >
-                <Stack gap="xs">
-                  <Group gap="xs">
-                    <Text fw="bold">Nome:</Text>
-                    <Text>{item.name}</Text>
-                  </Group>
-                  <Group gap="xs">
-                    <Text fw="bold">Email:</Text>
-                    <Text>{item.email}</Text>
-                  </Group>
-                </Stack>
-              </Card>
-            ))}
+          <Stack gap="lg">
+            {match(customersQuery)
+              .with({ isLoading: true }, () => (
+                <Skeleton visible={customersQuery.isLoading}>
+                  {new Array(5).fill({}).map((_item, index) => (
+                    <Card
+                      key={index.toString()}
+                      shadow="md"
+                      padding="md"
+                      radius="md"
+                      withBorder
+                    >
+                      <Stack gap="xs">
+                        <Group gap="xs">
+                          <Text fw="bold">Nome:</Text>
+                          <Text>John Doe</Text>
+                        </Group>
+                        <Group gap="xs">
+                          <Text fw="bold">Email:</Text>
+                          <Text>jhondoe@email.com.br</Text>
+                        </Group>
+                      </Stack>
+                    </Card>
+                  ))}
+                </Skeleton>
+              ))
+              .with({ isError: true }, () => (
+                <p className="font-bold text-red-500">
+                  Ocorreu um erro ao listar clientes
+                </p>
+              ))
+              .with({ data: P.nonNullable }, ({ data }) => {
+                return data.map((item, index) => (
+                  <Card
+                    key={index.toString()}
+                    shadow="md"
+                    padding="md"
+                    radius="md"
+                    withBorder
+                  >
+                    <Stack gap="xs">
+                      <Group gap="xs">
+                        <Text fw="bold">Nome:</Text>
+                        <Text>{item.name}</Text>
+                      </Group>
+                      <Group gap="xs">
+                        <Text fw="bold">Email:</Text>
+                        <Text>{item.email ?? "Não informado"}</Text>
+                      </Group>
+                    </Stack>
+                  </Card>
+                ));
+              })
+              .with({ data: P.nullish }, () => (
+                <p>Nenhum cliente encontrado!</p>
+              ))
+              .exhaustive()}
           </Stack>
         </section>
       </article>
