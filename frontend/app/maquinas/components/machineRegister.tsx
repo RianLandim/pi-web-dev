@@ -3,11 +3,13 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { Button } from "../../../package/ui/src/button";
 import { Input } from "../../../package/ui/src/input";
+import { useState } from "react";
 
 const MachineRegistrationFormSchema = z.object({
   machineType: z.string().min(1, "Nome obrigatório"),
   problem: z.string().min(1, "Campo Obrigatório"),
   TypeOfPiece: z.string().min(1, "Campo Obrigatório"),
+  clientName: z.string().min(1, "Nome obrigatório"),
   description: z.string(),
   quantity: z
     .string()
@@ -31,6 +33,18 @@ export default function MachineRegisterForm() {
   const submit = (data: RegisterMachine) => {
     console.log("data:", data);
   };
+
+  const [names] = useState([
+    "Bruno",
+    "Maria",
+    "Albania",
+    "Algeria",
+    "Gabriel",
+    "Gilberto",
+    "Antarctica",
+    "Fontes",
+    // ... outros nomes
+  ]);
 
   return (
     <section>
@@ -72,6 +86,7 @@ export default function MachineRegisterForm() {
                   {...register("problem")}
                 />
               </div>
+
               <div className="flex flex-col space-y-2">
                 <p className="text-sm font-light">Tipo de peça</p>
                 <Input
@@ -86,6 +101,33 @@ export default function MachineRegisterForm() {
                       : "text-black"
                   }`}
                   {...register("TypeOfPiece")}
+                />
+              </div>
+              <div className="flex flex-col space-y-1">
+                {/* Datalist com os nomes */}
+                <datalist id="nameList">
+                  {names.map((name) => (
+                    <option key={name} value={name}>
+                      {name}
+                    </option>
+                  ))}
+                </datalist>
+
+                <p className="text-sm font-light">Nome do CLiente</p>
+                <Input
+                  id="clientName"
+                  placeholder={
+                    (errors.clientName && errors.clientName.message) || "Nome"
+                  }
+                  type="text"
+                  list="nameList"
+                  // autocomplete="off"
+                  className={`pl-2 ${
+                    errors.clientName
+                      ? "placeholder:text-red-500"
+                      : "text-black"
+                  }`}
+                  {...register("clientName")}
                 />
               </div>
               <div className="flex flex-col space-y-2">
