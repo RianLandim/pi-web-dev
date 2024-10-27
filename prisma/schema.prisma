@@ -22,11 +22,28 @@ model Customer {
     contact String
     email   String?
 
-    users     User[]
-    services  Service[]
-    part      Part[]
-    address   Address   @relation(fields: [addressId], references: [id])
+    users    User[]
+    services Service[]
+    Machine  Machine[]
+
+    address   Address @relation(fields: [addressId], references: [id])
     addressId String
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @default(now()) @updatedAt
+}
+
+model Machine {
+    id String @id @default(cuid())
+
+    type        String
+    name        String
+    description String?
+    problem     String
+    partType    PartType
+
+    Customer   Customer @relation(fields: [customerId], references: [id])
+    customerId String
 
     createdAt DateTime @default(now())
     updatedAt DateTime @default(now()) @updatedAt
@@ -35,20 +52,6 @@ model Customer {
 enum PartType {
     REPLACEMENT
     MAINTENANCE
-}
-
-model Part {
-    id String @id @default(cuid())
-
-    name        String
-    description String
-
-    type       PartType
-    Customer   Customer @relation(fields: [customerId], references: [id])
-    customerId String
-
-    createdAt DateTime @default(now())
-    updatedAt DateTime @default(now()) @updatedAt
 }
 
 model Address {
