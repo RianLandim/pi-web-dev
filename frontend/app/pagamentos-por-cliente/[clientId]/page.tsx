@@ -4,6 +4,8 @@ import arrowBack from "@/public/arrowBack.svg";
 import NavBar from "../../components/navBar";
 import EspecificPaymentCard from "../components/EspecificPaymentCard";
 import { useState } from "react";
+import { fetchClientById } from "../components/hooks/ClientService";
+import { useQuery } from "@tanstack/react-query";
 
 export default function ClientPaymentsPage({
   params,
@@ -12,6 +14,21 @@ export default function ClientPaymentsPage({
 }) {
   // Ordenation
   const [isAscending, setIsAscending] = useState(true);
+
+  // Requisição para buscar o cliente usando TanStack Query
+  const { clientId } = params;
+  const {
+    data: clientData,
+    error,
+    isLoading,
+  } = useQuery({
+    queryKey: ["client", clientId],
+    queryFn: () => fetchClientById(clientId),
+  });
+
+  // Lidar com estado de carregamento e erro
+  if (isLoading) return <div>Carregando...</div>;
+  if (error) return <div>Erro ao carregar dados do cliente</div>;
 
   const clients = [
     {
