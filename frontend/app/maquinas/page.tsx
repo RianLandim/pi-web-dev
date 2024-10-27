@@ -56,7 +56,8 @@ export default function MachinesPage() {
         isDialogOpen={isDialogOpen}
         setIsDialogOpen={setIsDialogOpen}
       />
-      <article className="h-[92%] w-full space-y-5 px-6 flex flex-col ">
+
+      <section className="h-[92%] w-full space-y-5 px-6 flex flex-col pb-6">
         <div className="flex justify-between w-full items-center ">
           {/* Título da Página */}
           <h1 className="text-xl">Máquinas</h1>
@@ -92,7 +93,7 @@ export default function MachinesPage() {
         </section>
 
         {/* Lista de clientes filtrados */}
-        <section className="w-full h-fit rounded-xl space-y-3 overflow-y-auto flex flex-col pb-6">
+        <section className="w-full h-fit rounded-xl space-y-3 overflow-y-auto flex flex-col">
           {filteredMachines.length > 0 ? (
             filteredMachines.map((machine, index) => (
               <MachineCard
@@ -109,8 +110,9 @@ export default function MachinesPage() {
             <p>Nenhum máquina encontrado.</p>
           )}
         </section>
+
         <NavBar />
-      </article>
+      </section>
     </main>
   );
 }
