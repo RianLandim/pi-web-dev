@@ -6,6 +6,8 @@ import EspecificPaymentCard from "../components/EspecificPaymentCard";
 import { useState } from "react";
 import { fetchClientById } from "../components/hooks/ClientService";
 import { useQuery } from "@tanstack/react-query";
+import LoadingPage from "../../../components/loadingPage";
+import ErrorPage from "../../../components/ErrorPage";
 
 export default function ClientPaymentsPage({
   params,
@@ -27,8 +29,8 @@ export default function ClientPaymentsPage({
   });
 
   // Lidar com estado de carregamento e erro
-  if (isLoading) return <div>Carregando...</div>;
-  if (error) return <div>Erro ao carregar dados do cliente</div>;
+  if (isLoading) return <LoadingPage />;
+  // if (error) return <ErrorPage />;
 
   const clients = [
     {
@@ -107,7 +109,7 @@ export default function ClientPaymentsPage({
       <article className="h-[92%] w-full space-y-5 px-6 flex flex-col pb-6">
         <div className="flex justify-between w-full items-center">
           {/*  I want to write the name of the cliente below */}
-          <h1 className="text-xl">Pagamento(s) do !client name! </h1>
+          <h1 className="text-xl">Pagamento(s) do {clientData?.name}</h1>
           <Image src={arrowBack} width={25} height={25} alt="arrowBackIcon" />
         </div>
 
