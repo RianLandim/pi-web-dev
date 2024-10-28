@@ -5,30 +5,73 @@ import arrowBack from "../../public/arrowBack.svg";
 import magnifier from "../../public/magnifier.svg";
 import { useState } from "react";
 import NavBar from "../components/navBar";
-import CardNotification from "../pagamentos/components/PaymentCard";
+import NotificationOfPaymentCard from "./components/NotificationOfPaymentCard";
+import NotificationOfSchedulingDoneCard from "./components/NotificationOfSchedulingDoneCard";
+import NotificationForRemeberScheduling from "./components/NotificationForRemeberScheduling";
+
+type NotificationType
+ =
+  | "all"
+  | "payment"
+  | "schedulingDone"
+  | "rememberScheduling";
 
 export default function PaymentsPage() {
-  const [name, setName] = useState("");
+  const [notificationType, setNotificationType] =
+    useState<NotificationType>("all");
 
-  const notifications = [
-    { data: "12/12/1221", name: "Wesley", isPayed: true },
-    { data: "12/12/1221", name: "Maria", isPayed: false },
-    { data: "12/12/1221", name: "João", isPayed: true },
-    { data: "12/12/1221", name: "Carlos", isPayed: false },
-    { data: "12/12/1221", name: "Ana", isPayed: true },
-    { data: "12/12/1221", name: "Wesley", isPayed: false },
-    { data: "12/12/1221", name: "Wesley", isPayed: false },
-    { data: "12/12/1221", name: "Wesley", isPayed: false },
-    { data: "12/12/1221", name: "Wesley", isPayed: false },
-    { data: "12/12/1221", name: "Wesley", isPayed: false },
-    { data: "12/12/1221", name: "Wesley", isPayed: false },
-    { data: "12/12/1221", name: "Wesley", isPayed: false },
+  const notificationOfPayment = [
+    { data: "12/12/1221", name: "Wesley", isPayed: true, type: "payment" },
+    { data: "12/12/1221", name: "Maria", isPayed: false, type: "payment" },
+  ];
+
+  const notificationOfSchedulingDone = [
+    {
+      data: "12/12/1221",
+      name: "Wesley",
+      isPayed: true,
+      type: "schedulingDone",
+    },
+    {
+      data: "12/12/1221",
+      name: "Maria",
+      isPayed: false,
+      type: "schedulingDone",
+    },
+  ];
+
+  const notificationForRememberScheduling = [
+    {
+      data: "12/12/1221",
+      name: "Wesley",
+      isPayed: true,
+      type: "rememberScheduling",
+    },
+    {
+      data: "12/12/1221",
+      name: "Maria",
+      isPayed: false,
+      type: "rememberScheduling",
+    },
   ];
 
   // Filtra a lista de clientes com base no nome digitado
-  const filteredNotifications = notifications.filter((notifications) =>
-    notifications.name.toLowerCase().includes(name.toLowerCase())
-  );
+  const filteredNotifications = {
+    payment: notificationOfPayment.filter(
+      (notification) => notification.type === notificationType
+    ),
+    schedulingDone: notificationOfSchedulingDone.filter(
+      (notification) => notification.type === notificationType
+    ),
+    rememberScheduling: notificationForRememberScheduling.filter(
+      (notification) => notification.type === notificationType
+    ),
+    all: [
+      ...notificationOfPayment,
+      ...notificationOfSchedulingDone,
+      ...notificationForRememberScheduling,
+    ],
+  };
 
   return (
     <main className="bg-main h-screen w-full pt-16 relative text-whiteApp">
@@ -47,32 +90,55 @@ export default function PaymentsPage() {
               height={25}
               alt="maginifierIcon"
             />
-            <input
-              className="placeholder:pl-2 w-full text-black p-2 rounded-xl"
-              placeholder="Pesquise pelo nome..."
-              type="text"
-              name="name"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-            />
+            <select
+              className="p-2 w-[85%] bg-whiteApp rounded-md text-black"
+              value={notificationType}
+              onChange={(e) => setNotificationType(e.target.value as NotificationType)}
+            >
+              <option value="all">Todos</option>
+              <option value="payment">Pagamentos</option>
+              <option value="schedulingDone">Agendamentos Concluídos</option>
+              <option value="rememberScheduling">
+                Lembretes de Agendamento
+              </option>
+            </select>
           </div>
         </section>
 
-        {/* Lista de clientes filtrados */}
+        {/* Lista de notificações filtradas */}
         <section className="w-full h-fit rounded-xl space-y-3 overflow-y-auto flex flex-col">
-          {notifications.length > 0 ? (
-            notifications.map((notifications, index) => (
-              <CardNotification
-                key={index}
-                data={notifications.data}
-                name={notifications.name}
-                isPayed={notifications.isPayed}
-              />
-            ))
-          ) : (
-            <p>Nenhum cliente encontrado.</p>
+          {filteredNotifications[notificationType].map(
+            (notification, index) => {
+              if (notification.type === "payment") {
+                return (
+                  <NotificationOfPaymentCard
+                    key={`payment-${index}`}
+                    data={notification.data}
+                    name={notification.name}
+                    isPayed={notification.isPayed}
+                  />
+                );
+              } else if (notification.type === "schedulingDone") {
+                return (
+                  <NotificationOfSchedulingDoneCard
+                    key={`schedulingDone-${index}`}
+                    data={notification.data}
+                    name={notification.name}
+                  />
+                );
+              } else if (notification.type === "rememberScheduling") {
+                return (
+                  <NotificationForRemeberScheduling
+                    key={`rememberScheduling-${index}`}
+                    data={notification.data}
+                    name={notification.name}
+                  />
+                );
+              }
+            }
           )}
         </section>
+
         <NavBar />
       </article>
     </main>

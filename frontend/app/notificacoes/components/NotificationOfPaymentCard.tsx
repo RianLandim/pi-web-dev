@@ -1,6 +1,4 @@
-import Image from "next/image";
-import checkedIncon from "../../../public/checkedIncon.svg";
-import notCheckedIncon from "../../../public/notCheckedIcon.svg";
+import { CurrencyCircleDollar } from "@phosphor-icons/react";
 
 interface cardClientProps {
   name: string;
@@ -10,17 +8,17 @@ interface cardClientProps {
 
 export default function NotificationOfPaymentCard(props: cardClientProps) {
   return (
-    <div className="bg-cardClientBG flex w-full rounded-xl px-4 py-3 h-fit">
-      <div className="w-full h-full">
-        <h2>{props.name}</h2>
-        <h3>Pago no dia: {props.data}</h3>
+    <div className="bg-cardClientBG border border-orangeApp flex w-full rounded-xl px-4 py-3 h-fit items-center space-x-4">
+      <div className="w-full h-full flex flex-col space-y-3">
+        <h2>
+          Pagamento{" "}
+          <p className="inline-block text-orange-500 font-semibold">prestes</p>{" "}
+          a vencer para o cliente{" "}
+          <p className="underline inline-block">{props.name}</p>
+        </h2>
+        <h3>Vencimento: {props.data}</h3>
       </div>
-      <Image
-        src={props.isPayed ? checkedIncon : notCheckedIncon}
-        width={30}
-        height={30}
-        alt=""
-      />
+      <CurrencyCircleDollar size={50} />
     </div>
   );
 }
