@@ -14,7 +14,7 @@ export default function NotificationForRemeberScheduling(
         <h2>
           Agendamento marcado para{" "}
           <p className="font-semibold inline-block text-orangeApp">amanhã</p>{" "}
-          para o cliente <p className="underline inline-block">{props.name}</p>
+          para o(a) cliente <p className="underline inline-block">{props.name}</p>
         </h2>
         <h3>Data: {props.data}</h3>
       </div>

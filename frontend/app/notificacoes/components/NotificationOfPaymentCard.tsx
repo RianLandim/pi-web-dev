@@ -13,7 +13,7 @@ export default function NotificationOfPaymentCard(props: cardClientProps) {
         <h2>
           Pagamento{" "}
           <p className="inline-block text-orange-500 font-semibold">prestes</p>{" "}
-          a vencer para o cliente{" "}
+          a vencer para o(a) cliente{" "}
           <p className="underline inline-block">{props.name}</p>
         </h2>
         <h3>Vencimento: {props.data}</h3>

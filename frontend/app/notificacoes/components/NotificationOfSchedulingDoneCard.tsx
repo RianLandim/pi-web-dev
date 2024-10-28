@@ -14,7 +14,7 @@ export default function NotificationOfSchedulingDoneCard(
         <h2>
           Agendamento{" "}
           <p className="font-semibold inline-block text-greenApp">adicionado</p>{" "}
-          para o cliente <p className="underline inline-block">{props.name}</p>
+          para o(a) cliente <p className="underline inline-block">{props.name}</p>
         </h2>
         <h3>Data: {props.data}</h3>
       </div>
