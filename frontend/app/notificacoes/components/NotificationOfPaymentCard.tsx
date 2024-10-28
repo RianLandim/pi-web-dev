@@ -8,7 +8,7 @@ interface cardClientProps {
   isPayed?: boolean;
 }
 
-export default function NotificationCard(props: cardClientProps) {
+export default function NotificationOfPaymentCard(props: cardClientProps) {
   return (
     <div className="bg-cardClientBG flex w-full rounded-xl px-4 py-3 h-fit">
       <div className="w-full h-full">

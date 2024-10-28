@@ -32,7 +32,7 @@ export default function PaymentsPage() {
 
   return (
     <main className="bg-main h-screen w-full pt-16 relative text-whiteApp">
-      <article className="h-[92%] w-full space-y-5 px-6 flex flex-col ">
+      <article className="pb-6 h-[92%] w-full space-y-5 px-6 flex flex-col ">
         <div className="flex justify-between w-full items-center ">
           <h1 className="text-xl">Notificações</h1>
           <Image src={arrowBack} width={25} height={25} alt="arrowBackIcon" />
@@ -59,7 +59,7 @@ export default function PaymentsPage() {
         </section>
 
         {/* Lista de clientes filtrados */}
-        <section className="w-full h-fit rounded-xl space-y-3 overflow-y-auto flex flex-col pb-6">
+        <section className="w-full h-fit rounded-xl space-y-3 overflow-y-auto flex flex-col">
           {notifications.length > 0 ? (
             notifications.map((notifications, index) => (
               <CardNotification
