@@ -23,28 +23,28 @@ export default function NavBar() {
       <Link href="/calendario">
         <House size={32} weight="fill" />
         {pathname === "/calendario" && (
-          <div className="h-1 w-full bg-green-500 "></div>
+          <div className="rounded-sm h-1 w-full bg-green-500 "></div>
         )}
       </Link>
 
       <Link href="/notificacoes">
         <ChatCircle size={32} weight="fill" />
         {pathname === "/notificacoes" && (
-          <div className="h-1 w-full bg-green-500 "></div>
+          <div className="rounded-sm h-1 w-full bg-green-500 "></div>
         )}
       </Link>
 
       <Link href="/baseDeClientes">
         <UserCircle size={32} weight="fill" />
         {pathname === "/baseDeClientes" && (
-          <div className="h-1 w-full bg-green-500 "></div>
+          <div className="rounded-sm h-1 w-full bg-green-500 "></div>
         )}
       </Link>
 
       <Link href="/pagamentos-gerais">
         <CurrencyCircleDollar size={32} weight="fill" />
         {pathname === "/pagamentos-gerais" && (
-          <div className="h-1 w-full bg-green-500 "></div>
+          <div className="rounded-sm h-1 w-full bg-green-500 "></div>
         )}
       </Link>
     </section>
