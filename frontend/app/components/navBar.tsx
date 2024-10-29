@@ -1,4 +1,10 @@
-import { ChatCircle, House, UserCircle, Wrench } from "@phosphor-icons/react";
+import {
+  ChatCircle,
+  CurrencyCircleDollar,
+  House,
+  UserCircle,
+  Wrench,
+} from "@phosphor-icons/react";
 import Link from "next/link";
 
 export default function NavBar() {
@@ -22,9 +28,9 @@ export default function NavBar() {
         <UserCircle size={32} weight="fill" />
       </Link>
 
-      {/* <Link href="/pagamentos">
+      <Link href="/pagamentos-gerais">
         <CurrencyCircleDollar size={32} weight="fill" />
-      </Link> */}
+      </Link>
     </section>
   );
 }
