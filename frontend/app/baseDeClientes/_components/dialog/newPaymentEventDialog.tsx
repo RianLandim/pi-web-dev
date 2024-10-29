@@ -19,7 +19,10 @@ export function NewPaymentEventDialog({
 }: NewPaymentEventDialogProps) {
   return (
     <Dialog open={isOpen} onOpenChange={(open) => !open && onClose()}>
-      <DialogContent className="bg-cardClientBG text-white w-[90%] rounded-lg">
+      <DialogContent
+        aria-describedby={undefined}
+        className="bg-cardClientBG text-white w-[90%] rounded-lg"
+      >
         <DialogHeader>
           <DialogTitle>Nova ordem de pagamento</DialogTitle>
         </DialogHeader>
