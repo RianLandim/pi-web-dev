@@ -104,8 +104,22 @@ model Checkout {
     status   CheckoutStatus @default(OPEN)
     closedAt DateTime?
 
+    createdAt DateTime  @default(now())
+    updatedAt DateTime  @default(now()) @updatedAt
+    Payment   Payment[]
+}
+
+model Payment {
+    id         String @id @default(cuid())
+    checkoutId String
+
+    value Float
+    dueAt DateTime
+
     createdAt DateTime @default(now())
     updatedAt DateTime @default(now()) @updatedAt
+
+    checkout Checkout @relation(fields: [checkoutId], references: [id])
 }
 
 // Necessary for Next auth

@@ -57,21 +57,24 @@ export const authOptions: NextAuthOptions = {
         username: { label: "Email", type: "text" },
         password: { label: "Password", type: "password" },
       },
-      authorize(credentials) {
-        const user = {
-          id: "1",
-          password: "Teste123!",
-          email: "teste@gmail.com",
-        };
-
+      async authorize(credentials) {
         if (!credentials) {
           return null;
         }
 
-        if (
-          credentials.username === user.email &&
-          credentials.password === user.password
-        ) {
+        const { password, username } = credentials;
+
+        const user = await db.user.findFirst({
+          where: {
+            email: username,
+          },
+        });
+
+        if (!user) {
+          return null;
+        }
+
+        if (username === user.email && password === user.password) {
           return user;
         }
 
