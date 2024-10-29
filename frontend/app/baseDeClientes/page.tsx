@@ -9,6 +9,7 @@ import NavBar from "../components/navBar";
 import { PlusCircle } from "@phosphor-icons/react";
 import DetailedCardClient from "./_components/DetailedCardClient";
 import RegisterCardClient from "./_components/RegisterClientCard";
+import NewPaymentCard from "./_components/newPaymentCard";
 
 interface Client {
   description: string;

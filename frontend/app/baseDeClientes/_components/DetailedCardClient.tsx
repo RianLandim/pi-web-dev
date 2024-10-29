@@ -6,6 +6,7 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { NewPaymentEventDialog } from "./dialog/newPaymentEventDialog";
 
 interface cardClientProps {
   clientId: string; // Add this line for unique client identification
@@ -38,7 +39,10 @@ export default function DetailedCardClient(props: cardClientProps) {
     resolver: zodResolver(EditClientDataFormSchema),
   });
 
+  const [isPaymentDialogOpen, setIsPaymentDialogOpen] = useState(false);
   const [isEditing, setIsEditing] = useState<boolean>(props.isEditing || false);
+
+  const openCreatePaymentDialog = () => setIsPaymentDialogOpen(true);
 
   const router = useRouter();
 
@@ -57,7 +61,7 @@ export default function DetailedCardClient(props: cardClientProps) {
   };
 
   return (
-    <section className="bg-cardClientBG flex flex-col space-y-4 w-full rounded-xl px-4 py-3 h-fit">
+    <section className="bg-cardClientBG shadow-md flex flex-col space-y-4 w-full rounded-xl px-4 py-3 h-fit">
       <form className="w-full h-fit justify-between">
         {isEditing ? (
           <div className="w-full h-fit flex flex-col space-y-4">
@@ -104,10 +108,18 @@ export default function DetailedCardClient(props: cardClientProps) {
           </div>
         ) : (
           <div className="w-full h-fit flex flex-col space-y-4">
-            <h1 className="text-2xl">Nome: {props.name}</h1>
-            <h2>Email: {props.email}</h2>
-            <h2>Telefone: {props.phone}</h2>
-            <h2>Endereço: {props.address}</h2>
+            <h1 className="text-xl">
+              <b>Nome:</b> {props.name}
+            </h1>
+            <h2>
+              <b>Email:</b> {props.email}
+            </h2>
+            <h2>
+              <b>Telefone:</b> {props.phone}
+            </h2>
+            <h2>
+              <b>Endereço:</b> {props.address}
+            </h2>
           </div>
         )}
       </form>
@@ -122,15 +134,22 @@ export default function DetailedCardClient(props: cardClientProps) {
           <Trash weight="fill" size={31} color="#F34213" />
         </div>
       ) : (
-        <div className="flex space-x-3">
-          <Button className="w-1/2" onClick={toggleEditing}>
+        <div className="flex w-full space-y-3 flex-col items-center">
+          <Button className="w-3/4" onClick={toggleEditing}>
             Editar
           </Button>
-          <Button className="w-1/2" onClick={toggleSeePayments}>
+          <Button className="w-3/4" onClick={toggleSeePayments}>
             Pagamentos
+          </Button>
+          <Button className="w-3/4" onClick={openCreatePaymentDialog}>
+            Criar pagamento
           </Button>
         </div>
       )}
+      <NewPaymentEventDialog
+        isOpen={isPaymentDialogOpen}
+        onClose={() => setIsPaymentDialogOpen(false)}
+      />
     </section>
   );
 }
