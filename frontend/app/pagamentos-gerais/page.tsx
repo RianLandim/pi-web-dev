@@ -76,7 +76,7 @@ export default function ClientPaymentsPage({
 
   return (
     <main className="bg-main h-screen w-full pt-16 relative text-whiteApp">
-      <article className="h-[92%] w-full space-y-5 px-6 flex flex-col ">
+      <article className="h-[92%] w-full space-y-5 px-6 flex flex-col pb-6">
         <div className="flex justify-between w-full items-center">
           {/*  I want to write the name of the cliente below */}
           <h1 className="text-xl">Pagamentos Gerais</h1>
@@ -109,7 +109,7 @@ export default function ClientPaymentsPage({
         </section>
 
         {/* Lista de clientes filtrados */}
-        <section className="w-full h-fit rounded-xl space-y-3 overflow-y-auto flex flex-col pb-6">
+        <section className="w-full h-fit rounded-xl space-y-3 overflow-y-auto flex flex-col">
           {filteredClients.length > 0 ? (
             filteredClients.map((client, index) => (
               <GeneralPaymentCard
