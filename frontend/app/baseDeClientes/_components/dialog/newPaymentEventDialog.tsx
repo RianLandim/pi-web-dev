@@ -9,11 +9,13 @@ import NewPaymentCard from "../newPaymentCard";
 interface NewPaymentEventDialogProps {
   isOpen: boolean;
   onClose: () => void;
+  name: string; // Recebe o nome do cliente
 }
 
 export function NewPaymentEventDialog({
   isOpen,
   onClose,
+  name,
 }: NewPaymentEventDialogProps) {
   return (
     <Dialog open={isOpen} onOpenChange={(open) => !open && onClose()}>
@@ -21,7 +23,7 @@ export function NewPaymentEventDialog({
         <DialogHeader>
           <DialogTitle>Nova ordem de pagamento</DialogTitle>
         </DialogHeader>
-        <NewPaymentCard />
+        <NewPaymentCard name={name} />
       </DialogContent>
     </Dialog>
   );

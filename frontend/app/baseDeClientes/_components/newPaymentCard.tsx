@@ -5,6 +5,10 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect, useState } from "react";
 
+interface cardProps {
+  name: string;
+}
+
 const EditClientDataFormSchema = z.object({
   value: z
     .string()
@@ -18,38 +22,34 @@ const EditClientDataFormSchema = z.object({
 
 type EditClientData = z.infer<typeof EditClientDataFormSchema>;
 
-export default function NewPaymentCard() {
+export default function NewPaymentCard({ name }: cardProps) {
   const {
     handleSubmit,
     register,
+    reset,
     formState: { errors },
   } = useForm<EditClientData>({
     resolver: zodResolver(EditClientDataFormSchema),
   });
 
-  // const { selectedDate } = useCalendarEventDisclosure();
+  const [clientName, setClientName] = useState<string>(name)
 
-  // useEffect(() => {
-  //   reset({
-  //     date: selectedDate,
-  //   });
-  // }, [selectedDate, reset]);
+  useEffect(() => {
+    reset({
+      name: clientName,
+    });
+  }, [clientName, reset]);
 
   const submit = (data: any) => {
     console.log("data:", data);
   };
 
   return (
-    <section
-      className="bg-cardClientBG flex flex-col space-y-4 
-                   w-full rounded-xl px-4 py-6 h-fit"
-    >
+    <section className="bg-cardClientBG flex flex-col space-y-4 w-full rounded-xl h-fit">
       <form
         className="w-full flex flex-col space-y-5 h-fit justify-between"
         onSubmit={handleSubmit(submit)}
       >
-        <p className=" font-bold w-full text-center">Nova ordem de pagamento</p>
-
         <div className="w-full h-fit flex flex-col space-y-2">
           <div className="flex w-full flex-col space-y-1">
             <h3 className="text-sm font-light">Nome:</h3>

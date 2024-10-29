@@ -149,6 +149,7 @@ export default function DetailedCardClient(props: cardClientProps) {
       <NewPaymentEventDialog
         isOpen={isPaymentDialogOpen}
         onClose={() => setIsPaymentDialogOpen(false)}
+        name={props.name}
       />
     </section>
   );
