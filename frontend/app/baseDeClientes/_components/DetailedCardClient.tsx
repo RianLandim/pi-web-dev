@@ -42,9 +42,8 @@ export default function DetailedCardClient(props: cardClientProps) {
   const [isPaymentDialogOpen, setIsPaymentDialogOpen] = useState(false);
   const [isEditing, setIsEditing] = useState<boolean>(props.isEditing || false);
 
-  const openCreatePaymentDialog = () => setIsPaymentDialogOpen(true);
-
   const router = useRouter();
+  const openCreatePaymentDialog = () => setIsPaymentDialogOpen(true);
 
   useEffect(() => {
     reset(props);
@@ -53,16 +52,22 @@ export default function DetailedCardClient(props: cardClientProps) {
   // Function to toggle editing mode
   const toggleEditing = () => {
     setIsEditing((prev) => !prev);
-    // console.log(isEditing);
   };
 
   const toggleSeePayments = () => {
     router.push(`/pagamentos-por-cliente/${props.clientId}`);
   };
 
+  const submit = (data: any) => {
+    console.log("data:", data);
+  };
+
   return (
     <section className="bg-cardClientBG shadow-md flex flex-col space-y-4 w-full rounded-xl px-4 py-3 h-fit">
-      <form className="w-full h-fit justify-between">
+      <form
+        className="w-full h-fit justify-between"
+        onSubmit={handleSubmit(submit)}
+      >
         {isEditing ? (
           <div className="w-full h-fit flex flex-col space-y-4">
             <Input
@@ -105,6 +110,14 @@ export default function DetailedCardClient(props: cardClientProps) {
               }`}
               {...register("address")}
             />
+            <div className="w-full h-full text-sm">
+              <h2>Visitas agendadas: {props.scheduledVisits}</h2>
+              <h2>Visitas feitas: {props.visitsMade}</h2>
+            </div>
+            <div className="flex justify-center space-x-10 items-center">
+              <Button>Salvar</Button>
+              <Trash weight="fill" size={31} color="#F34213" />
+            </div>
           </div>
         ) : (
           <div className="w-full h-fit flex flex-col space-y-4">
@@ -120,20 +133,15 @@ export default function DetailedCardClient(props: cardClientProps) {
             <h2>
               <b>Endereço:</b> {props.address}
             </h2>
+            <div className="w-full h-full text-sm">
+              <h2>Visitas agendadas: {props.scheduledVisits}</h2>
+              <h2>Visitas feitas: {props.visitsMade}</h2>
+            </div>
           </div>
         )}
       </form>
-      <div className="w-full h-full text-sm">
-        <h2>Visitas agendadas: {props.scheduledVisits}</h2>
-        <h2>Visitas feitas: {props.visitsMade}</h2>
-      </div>
 
-      {isEditing ? (
-        <div className="flex justify-center space-x-10 items-center">
-          <Button>Salvar</Button>
-          <Trash weight="fill" size={31} color="#F34213" />
-        </div>
-      ) : (
+      {!isEditing && (
         <div className="flex w-full space-y-3 flex-col items-center">
           <Button className="w-3/4" onClick={toggleEditing}>
             Editar
