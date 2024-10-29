@@ -12,9 +12,9 @@ interface cardClientProps {
 
 export default function GeneralPaymentCard(props: cardClientProps) {
   return (
-    <section className="bg-cardClientBG flex w-full rounded-xl px-4 py-3 h-fit">
+    <section className="bg-cardClientBG flex w-full rounded-xl px-4 py-4 h-fit">
       <div className="w-full h-full">
-        <h2>{props.name}</h2>
+        <h2 className="font-bold">{props.name}</h2>
         <div className="flex space-x-1 text-sm">
           <h4>Pagamento:</h4>
           {props.isPayed ? <h3>Pago</h3> : <h3>Pendente</h3>}
