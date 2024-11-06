@@ -26,6 +26,8 @@ function CalendarApp({ onClickAgendaDate }: CalendarAppProps) {
   // Simulatiing events
 
   // EXPLANATION OF EVENTS:
+  // title: On default vision it shows at font bold.
+  // description: when opened the event by clickin at it, it shows up.
   // id: SOME NUNBER THAT MAKE SURE THE EVENT ARE UNIQUE
   // start: SOME DATE AND HOUR, LIKE: "2024-09-09 07:45"
   // end: SOME DATE AND HOUR, LIKE: "2024-09-09 09:01"
@@ -38,13 +40,29 @@ function CalendarApp({ onClickAgendaDate }: CalendarAppProps) {
   const events = [
     {
       id: 874574875,
+      title: "Meeting with Mr. boss",
       start: "2024-11-06 07:00",
       end: "2024-09-09 09:00",
-      _customContent: {
-        timeGrid: '<div class="custom-content">Custom Content</div>',
-        monthGrid: '<div class="custom-content">Custom Content</div>',
-      },
+      // _customContent: {
+      //   timeGrid: '<div class="custom-content">Custom Content</div>',
+      //   monthGrid: '<div class="custom-content">Custom Content</div>',
+      // },
       calendarId: "regularPriority",
+      description: "calor muito grande agrora",
+    },
+    {
+      id: 874574875,
+      start: "2024-11-06",
+      end: "2024-09-09",
+      title: "Dia todo - Limpezas nas máquinas",
+      // _customContent: {
+      //   dateGrid:
+      //     '<div class="custom-content">Dia todo - Limpezas nas máquinas</div>',
+      //   monthAgenda:
+      //     '<div class="custom-content">Dia todo - Limpezas nas máquinas</div>',
+      // },
+      calendarId: "lowPriority",
+      description: "calor muito grande agrora",
     },
     {
       id: 874574875,
@@ -52,10 +70,13 @@ function CalendarApp({ onClickAgendaDate }: CalendarAppProps) {
       end: "2024-09-09",
       title: "Dia todo - Limpezas nas máquinas",
       _customContent: {
-        dateGrid: '<div class="custom-content">Dia todo - Limpezas nas máquinas</div>',
-        monthAgenda: '<div class="custom-content">Dia todo - Limpezas nas máquinas</div>',
+        dateGrid:
+          '<div class="custom-content">Dia todo - Limpezas nas máquinas</div>',
+        monthAgenda:
+          '<div class="custom-content">Dia todo - Limpezas nas máquinas</div>',
       },
-      calendarId: "lowPriority",
+      calendarId: "highPriority",
+      description: "calor muito grande agrora",
     },
     {
       id: 874574875,
@@ -131,12 +152,12 @@ function CalendarApp({ onClickAgendaDate }: CalendarAppProps) {
         colorName: "regular",
         lightColors: {
           main: "#00649E",
-          container: "#FFFFFF",
+          container: "#D9D9D9",
           onContainer: "#594800",
         },
         darkColors: {
           main: "#00649E",
-          onContainer: "#FFFFFF",
+          onContainer: "#D9D9D9",
           container: "#a29742",
         },
       },
