@@ -6,27 +6,56 @@ import {
   createViewWeek,
 } from "@schedule-x/calendar";
 import "@schedule-x/theme-default/dist/index.css";
+import { createEventModalPlugin } from "@schedule-x/event-modal";
+
 interface CalendarAppProps {
   onClickAgendaDate?: (date: string) => void;
 }
 
+// TODOs:
+// MAKE A QUERY TO BRING UP THE EVENT TO THE CALENDAR
+// IT MAY NEED A REFRESH TO SHOW UP THE EVENTS ON THE CALENDAR AFTER IT RENDERIZES.
+
 function CalendarApp({ onClickAgendaDate }: CalendarAppProps) {
+  // views of Calendar
   const monthGridView = createViewMonthGrid();
   const dayView = createViewDay();
   const weekView = createViewWeek();
   const monthAgendaView = createViewMonthAgenda();
 
+  // Simulatiing events
+
+  // EXPLANATION OF EVENTS:
+  // id: SOME NUNBER THAT MAKE SURE THE EVENT ARE UNIQUE
+  // start: SOME DATE AND HOUR, LIKE: "2024-09-09 07:45"
+  // end: SOME DATE AND HOUR, LIKE: "2024-09-09 09:01"
+  // _customContent: {
+  // timeGrid: '<div class="custom-content">!Custom Content, DESCRIBE HERE THE TEXT YOU WANT TO APPEAR IN CARD!</div>',
+  // monthGrid: '<div class="custom-content">!Custom Content, DESCRIBE HERE THE TEXT YOU WANT TO APPEAR IN CARD!</div>',
+  // },
+  // calendarId: regularPriority | lowPriority | highPriority
+
   const events = [
     {
       id: 874574875,
-      start: "2024-09-09 07:45",
-      end: "2024-09-09 09:01",
+      start: "2024-11-06 07:00",
+      end: "2024-09-09 09:00",
       _customContent: {
         timeGrid: '<div class="custom-content">Custom Content</div>',
         monthGrid: '<div class="custom-content">Custom Content</div>',
       },
-      calendarId: 'work',
-
+      calendarId: "regularPriority",
+    },
+    {
+      id: 874574875,
+      start: "2024-11-06",
+      end: "2024-09-09",
+      title: "Dia todo - Limpezas nas máquinas",
+      _customContent: {
+        dateGrid: '<div class="custom-content">Dia todo - Limpezas nas máquinas</div>',
+        monthAgenda: '<div class="custom-content">Dia todo - Limpezas nas máquinas</div>',
+      },
+      calendarId: "lowPriority",
     },
     {
       id: 874574875,
@@ -37,7 +66,7 @@ function CalendarApp({ onClickAgendaDate }: CalendarAppProps) {
         dateGrid: '<div class="custom-content">Custom Content</div>',
         monthAgenda: '<div class="custom-content">Custom Content</div>',
       },
-      calendarId: 'work',
+      calendarId: "highPriority",
     },
     {
       id: 45678,
@@ -45,7 +74,7 @@ function CalendarApp({ onClickAgendaDate }: CalendarAppProps) {
       start: "2024-03-19 14:00",
       end: "2024-03-19 15:00",
       rrule: "FREQ=WEEKLY;INTERVAL=2;BYDAY=MO,WE;UNTIL=20240229T235959",
-      calendarId: 'work',
+      calendarId: "work",
     },
     {
       id: 18547854,
@@ -92,66 +121,56 @@ function CalendarApp({ onClickAgendaDate }: CalendarAppProps) {
       id: 874367853,
     },
   ];
+  const eventModal = createEventModalPlugin();
+  eventModal.close(); // close the modal
 
   const calendar = useNextCalendarApp({
+    plugins: [eventModal],
     calendars: {
-      personal: {
-        colorName: "personal",
+      regularPriority: {
+        colorName: "regular",
         lightColors: {
-          main: "#f9d71c",
-          container: "#fff5aa",
+          main: "#00649E",
+          container: "#FFFFFF",
           onContainer: "#594800",
         },
         darkColors: {
-          main: "#fff5c0",
-          onContainer: "#fff5de",
+          main: "#00649E",
+          onContainer: "#FFFFFF",
           container: "#a29742",
         },
       },
-      work: {
-        colorName: "work",
+      highPriority: {
+        colorName: "highPriority",
         lightColors: {
           main: "#f91c45",
           container: "#ffd2dc",
           onContainer: "#59000d",
         },
         darkColors: {
-          main: "#ffc0cc",
+          main: "#f91c45",
           onContainer: "#ffdee6",
           container: "#a24258",
         },
       },
-      leisure: {
-        colorName: "leisure",
+      lowPriority: {
+        colorName: "lowPriority",
         lightColors: {
-          main: "#1cf9b0",
+          main: "#44AF69",
           container: "#dafff0",
           onContainer: "#004d3d",
         },
         darkColors: {
-          main: "#c0fff5",
+          main: "#44AF69",
           onContainer: "#e6fff5",
           container: "#42a297",
         },
       },
-      school: {
-        colorName: "school",
-        lightColors: {
-          main: "#1c7df9",
-          container: "#d2e7ff",
-          onContainer: "#002859",
-        },
-        darkColors: {
-          main: "#c0dfff",
-          onContainer: "#dee6ff",
-          container: "#426aa2",
-        },
-      },
     },
     callbacks: {
-      onEventClick(calendarEvent) {
-        console.log("onEventClick", calendarEvent);
-      },
+      // onEventClick(calendarEvent) {
+      //   console.log("onEventClick", calendarEvent);
+      // },
 
       // onRender($app) {
       //   const eventElements = document.querySelectorAll(".sx-event");
@@ -170,6 +189,7 @@ function CalendarApp({ onClickAgendaDate }: CalendarAppProps) {
       //     }
       //   });
       // },
+
       onClickAgendaDate: (date: string) => {
         // Check if there is at least one event on the clicked date
         const hasEventOnDate = events.some(
@@ -184,15 +204,15 @@ function CalendarApp({ onClickAgendaDate }: CalendarAppProps) {
     },
     views: [monthGridView, dayView, weekView, monthAgendaView],
     events,
-    // timePointsPerDay: 3,
     isResponsive: true,
-
     locale: "pt-BR",
     defaultView: monthGridView.name,
     dayBoundaries: {
       start: "06:00",
       end: "18:00",
     },
+
+    // timePointsPerDay: 3,
   });
 
   return (
