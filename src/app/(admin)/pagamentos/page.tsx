@@ -1,4 +1,17 @@
-// "use client";
+"use client";
+
+import NavBar from "~/app/_components/navBar";
+import AppMainBar from "./_components/AppMainBar";
+import { p } from "node_modules/nuqs/dist/serializer-DjSGvhZt";
+
+export default function Payments() {
+  return (
+    <div>
+      <p>Pagamentos</p>
+      <NavBar />
+    </div>
+  );
+}
 // import { cardClientProperties } from "./components/test";
 // import {
 //   QueryClient,
@@ -57,7 +70,6 @@
 //   return (
 //     <QueryClientProvider client={queryClient}>
 //       <PaymentPageContent />
-//       <AppMainBar />
 //     </QueryClientProvider>
 //   );
 // }
