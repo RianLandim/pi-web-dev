@@ -10,7 +10,7 @@ const config = {
     return [
       {
         source: "/",
-        destination: "/clientes",
+        destination: "/calendario",
         permanent: true,
       },
     ];
