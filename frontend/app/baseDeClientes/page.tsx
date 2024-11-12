@@ -76,7 +76,7 @@ export default function PaymentsPage() {
   );
 
   return (
-    <main className="bg-main h-screen w-full pt-16 relative">
+    <main className="bg-main h-screen w-full pt-16 relative text-whiteApp">
       {/* RegisterCardClient que aparece ao clicar */}
       {isRegisterCardOpen && (
         <div className="absolute top-0 left-0 h-screen w-[100%] flex justify-center items-center bg-black bg-opacity-50 z-10">
