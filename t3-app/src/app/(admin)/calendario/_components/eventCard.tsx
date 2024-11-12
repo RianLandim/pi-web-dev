@@ -8,8 +8,8 @@ interface EventCardProps {
 
 export default function EventCard(props: EventCardProps) {
   return (
-    <div className="bg-cardClientBG flex w-full rounded-xl px-4 py-3 h-fit">
-      <div className="w-full h-full">
+    <div className="flex h-fit w-full rounded-xl bg-cardClientBG px-4 py-3">
+      <div className="h-full w-full">
         <h2>{props.name}</h2>
         <h3 className="text-sm">
           Hora: {props.time} | {props.serviceName}
