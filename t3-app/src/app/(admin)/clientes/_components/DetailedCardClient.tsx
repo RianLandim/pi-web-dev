@@ -1,10 +1,10 @@
 import { Trash } from "@phosphor-icons/react";
-import { Button } from "../../../package/ui/src/button";
-import { Input } from "../../../package/ui/src/input";
+
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect, useState } from "react";
+import { Button, Input } from "@mantine/core";
 
 interface cardClientProps {
   name: string;
@@ -28,14 +28,13 @@ type EditClientData = z.infer<typeof EditClientDataFormSchema>;
 
 export default function DetailedCardClient(props: cardClientProps) {
   const {
-    handleSubmit,
     register,
     formState: { errors },
     reset,
   } = useForm<EditClientData>({
     resolver: zodResolver(EditClientDataFormSchema),
   });
-  const [isEditing, setIsEditing] = useState<boolean>(props.isEditing || false);
+  const [isEditing, setIsEditing] = useState<boolean>(props.isEditing ?? false);
 
   useEffect(() => {
     reset(props);
@@ -48,13 +47,13 @@ export default function DetailedCardClient(props: cardClientProps) {
   };
 
   return (
-    <section className="bg-cardClientBG flex flex-col space-y-4 w-full rounded-xl px-4 py-3 h-fit">
-      <form className="w-full h-fit justify-between">
+    <section className="flex h-fit w-full flex-col space-y-4 rounded-xl bg-cardClientBG px-4 py-3">
+      <form className="h-fit w-full justify-between">
         {isEditing ? (
-          <div className="w-full h-fit flex flex-col space-y-4">
+          <div className="flex h-fit w-full flex-col space-y-4">
             <Input
               id="name"
-              placeholder={(errors.name && errors.name.message) || "Nome"}
+              placeholder={errors.name?.message ?? "Nome"}
               type="text"
               className={`pl-2 ${
                 errors.name ? "placeholder:text-red-500" : "text-black"
@@ -64,7 +63,7 @@ export default function DetailedCardClient(props: cardClientProps) {
 
             <Input
               id="email"
-              placeholder={(errors.email && errors.email.message) || "Email"}
+              placeholder={errors.email?.message ?? "Email"}
               type="email"
               className={`pl-2 ${
                 errors.email ? "placeholder:text-red-500" : "text-black"
@@ -74,7 +73,7 @@ export default function DetailedCardClient(props: cardClientProps) {
 
             <Input
               id="phone"
-              placeholder={(errors.phone && errors.phone.message) || "Telefone"}
+              placeholder={errors.phone?.message ?? "Telefone"}
               type="text"
               className={`pl-2 ${
                 errors.phone ? "placeholder:text-red-500" : "text-black"
@@ -83,9 +82,7 @@ export default function DetailedCardClient(props: cardClientProps) {
             />
             <Input
               id="address"
-              placeholder={
-                (errors.address && errors.address.message) || "Endereço"
-              }
+              placeholder={errors.address?.message ?? "Endereço"}
               type="text"
               className={`pl-2 ${
                 errors.address ? "placeholder:text-red-500" : "text-black"
@@ -94,7 +91,7 @@ export default function DetailedCardClient(props: cardClientProps) {
             />
           </div>
         ) : (
-          <div className="w-full h-fit flex flex-col space-y-4">
+          <div className="flex h-fit w-full flex-col space-y-4">
             <h1 className="text-2xl">Nome: {props.name}</h1>
             <h2>Email: {props.email}</h2>
             <h2>Telefone: {props.phone}</h2>
@@ -102,13 +99,13 @@ export default function DetailedCardClient(props: cardClientProps) {
           </div>
         )}
       </form>
-      <div className="w-full h-full text-sm">
+      <div className="h-full w-full text-sm">
         <h2>Visitas agendadas: {props.scheduledVisits}</h2>
         <h2>Visitas feitas: {props.visitsMade}</h2>
       </div>
 
       {isEditing ? (
-        <div className="flex justify-center space-x-10 items-center">
+        <div className="flex items-center justify-center space-x-10">
           <Button>Salvar</Button>
           <Trash weight="fill" size={31} color="#F34213" />
         </div>

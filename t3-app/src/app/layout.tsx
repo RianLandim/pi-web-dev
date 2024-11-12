@@ -6,6 +6,7 @@ import { type Metadata } from "next";
 
 import { TRPCReactProvider } from "~/trpc/react";
 import Providers from "~/utils/providers";
+import { Suspense } from "react";
 
 export const metadata: Metadata = {
   title: "Create T3 App",
@@ -20,7 +21,9 @@ export default function RootLayout({
     <html lang="en" className={`${GeistSans.variable}`}>
       <body>
         <TRPCReactProvider>
-          <Providers>{children}</Providers>
+          <Suspense>
+            <Providers>{children}</Providers>
+          </Suspense>
         </TRPCReactProvider>
       </body>
     </html>

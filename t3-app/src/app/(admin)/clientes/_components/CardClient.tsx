@@ -1,5 +1,4 @@
-import Image from "next/image";
-import personIcon from "../../../public/personIcon.svg";
+import { PersonSimple } from "@phosphor-icons/react";
 
 interface cardClientProps {
   name: string;
@@ -8,12 +7,12 @@ interface cardClientProps {
 
 export default function CardClient(props: cardClientProps) {
   return (
-    <div className="bg-cardClientBG flex w-full rounded-xl px-4 py-3 h-fit">
-      <div className="w-full h-full">
+    <div className="flex h-fit w-full rounded-xl bg-cardClientBG px-4 py-3">
+      <div className="h-full w-full">
         <h2>{props.name}</h2>
         <h3 className="text-sm">Descrição: {props.description}</h3>
       </div>
-      <Image src={personIcon} width={30} height={30} alt="" />
+      <PersonSimple size={32} className="text-main" />
     </div>
   );
 }

@@ -36,7 +36,8 @@ const config = {
           "attributes": false
         }
       }
-    ]
+    ],
+    "@typescript-eslint/strict-boolean-expressions": "warn"
   }
 }
 module.exports = config;
