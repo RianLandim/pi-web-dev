@@ -1,3 +1,4 @@
+import { type CheckoutStatus } from "@prisma/client";
 import { z } from "zod";
 
 const REQUIRED_ERROR_MESSAGE = "Campo Obrigatorio";
@@ -15,3 +16,9 @@ export const createServiceValidator = z.object({
     .min(1, REQUIRED_ERROR_MESSAGE)
     .max(155, MAX_CHAR_ERROR_MESSAGE),
 });
+
+export const statusLabel: Record<CheckoutStatus, string> = {
+  OPEN: "Aberta",
+  CANCELLED: "Cancelado",
+  PAID: "Pago",
+} as const;

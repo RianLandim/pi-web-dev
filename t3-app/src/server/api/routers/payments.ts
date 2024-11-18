@@ -1,5 +1,5 @@
 import { createPaymentValidator } from "~/utils/validators/create-payment.validator";
-import { createTRPCRouter, protectedProcedure } from "../trpc";
+import { createTRPCRouter, protectedProcedure, publicProcedure } from "../trpc";
 import { z } from "zod";
 
 export const paymentRouter = createTRPCRouter({
@@ -11,8 +11,16 @@ export const paymentRouter = createTRPCRouter({
       });
     }),
 
-  list: protectedProcedure.query(async ({ ctx }) => {
-    const payments = await ctx.db.payment.findMany();
+  list: publicProcedure.query(async ({ ctx }) => {
+    const payments = await ctx.db.payment.findMany({
+      include: {
+        checkout: {
+          include: {
+            Service: true,
+          },
+        },
+      },
+    });
 
     return payments;
   }),

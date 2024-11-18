@@ -6,6 +6,8 @@ import { parseAsString, useQueryState } from "nuqs";
 import NavBar from "~/app/_components/navBar";
 import { api } from "~/trpc/react";
 import { match, P } from "ts-pattern";
+import { statusLabel } from "~/utils/validators/create-service-validator";
+import { formatCurrency } from "~/app/utils/format-currency";
 
 export default function PaymentsPage() {
   const [searchName, setSearchName] = useQueryState(
@@ -15,7 +17,7 @@ export default function PaymentsPage() {
     }),
   );
 
-  const machinesQuery = api.machine.list.useQuery(undefined, {
+  const paymentsQuery = api.payments.list.useQuery(undefined, {
     staleTime: Infinity,
   });
 
@@ -41,9 +43,9 @@ export default function PaymentsPage() {
 
         <section className="flex h-fit w-full flex-col space-y-3 overflow-scroll rounded-xl pb-6">
           <Stack gap="lg">
-            {match(machinesQuery)
+            {match(paymentsQuery)
               .with({ isLoading: true }, () => (
-                <Skeleton visible={machinesQuery.isLoading}>
+                <Skeleton visible={paymentsQuery.isLoading}>
                   {new Array(5).fill({}).map((_item, index) => (
                     <Card
                       key={index.toString()}
@@ -83,11 +85,17 @@ export default function PaymentsPage() {
                     <Stack gap="xs">
                       <Group gap="xs">
                         <Text fw="bold">Nome:</Text>
-                        <Text>{item.name}</Text>
+                        <Text>{item.checkout.Service?.name}</Text>
                       </Group>
                       <Group gap="xs">
-                        <Text fw="bold">Problema:</Text>
-                        <Text>{item.problem ?? "Não informado"}</Text>
+                        <Text fw="bold">Valor:</Text>
+                        <Text>{formatCurrency(item.value)}</Text>
+                      </Group>
+                      <Group gap="xs">
+                        <Text fw="bold">Status:</Text>
+                        <Text>
+                          {statusLabel[item.checkout.status] ?? "Não informado"}
+                        </Text>
                       </Group>
                     </Stack>
                   </Card>
