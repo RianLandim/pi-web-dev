@@ -1,6 +1,6 @@
 "use client";
 
-import { Button, Select, TextInput, Title } from "@mantine/core";
+import { Button, Select, Textarea, TextInput, Title } from "@mantine/core";
 import { useForm, zodResolver } from "@mantine/form";
 import { DateTimePicker } from "@mantine/dates";
 
@@ -21,6 +21,7 @@ export default function ScheduleServiceDialog() {
     initialValues: {
       name: "",
       customerId: "",
+      description: "",
       scheduledAt: new Date(),
       priority: "LOW",
     },
@@ -77,7 +78,17 @@ export default function ScheduleServiceDialog() {
           {...form.getInputProps("scheduledAt")}
         />
 
-        <Button type="submit">Agendar</Button>
+        <Textarea
+          withAsterisk
+          label="Descrição"
+          placeholder="Descrição"
+          key={form.key("description")}
+          {...form.getInputProps("description")}
+        />
+
+        <Button type="submit" loading={createScheduleMutation.isPending}>
+          Agendar
+        </Button>
       </form>
     </main>
   );

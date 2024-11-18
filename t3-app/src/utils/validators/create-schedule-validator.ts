@@ -14,6 +14,10 @@ export const createScheduleValidator = z.object({
     .string()
     .min(1, REQUIRED_ERROR_MESSAGE)
     .max(155, MAX_CHAR_ERROR_MESSAGE),
+  description: z
+    .string()
+    .min(1, REQUIRED_ERROR_MESSAGE)
+    .max(155, MAX_CHAR_ERROR_MESSAGE),
   scheduledAt: z.date(),
   priority: schedulePriority,
 });

@@ -79,12 +79,14 @@ enum Priority {
 model Service {
     id String @id @default(cuid())
 
+    name        String
     priority    Priority
     scheduledAt DateTime
     customer    Customer  @relation(fields: [customerId], references: [id])
     customerId  String
     checkout    Checkout? @relation(fields: [checkoutId], references: [id])
     checkoutId  String?   @unique
+    description String?
 
     createdAt DateTime @default(now())
     updatedAt DateTime @default(now()) @updatedAt

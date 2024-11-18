@@ -14,20 +14,16 @@ export const serviceRouter = createTRPCRouter({
           },
         });
 
-        console.log({ checkout });
-
         await tx.service.create({
           data: {
             checkoutId: checkout.id,
-            priority: data.priority,
-            scheduledAt: data.scheduledAt,
-            customerId: data.customerId,
+            ...data,
           },
         });
       });
     }),
 
-  list: protectedProcedure.query(async ({ ctx }) => {
+  list: publicProcedure.query(async ({ ctx }) => {
     const services = await ctx.db.service.findMany();
 
     return services;
