@@ -8,18 +8,10 @@ import {
 import "@schedule-x/theme-default/dist/index.css";
 
 import { api } from "~/trpc/react";
-import { useMemo } from "react";
-import { addDays, format } from "date-fns";
+import { useEffect, useMemo } from "react";
+import { addHours, format } from "date-fns";
 
-interface CalendarAppProps {
-  onClickAgendaDate?: (date: string) => void;
-}
-
-// TODOs:
-// MAKE A QUERY TO BRING UP THE EVENT TO THE CALENDAR
-// IT MAY NEED A REFRESH TO SHOW UP THE EVENTS ON THE CALENDAR AFTER IT RENDERIZES.
-
-function CalendarApp({ onClickAgendaDate }: CalendarAppProps) {
+function CalendarApp() {
   const monthGridView = createViewMonthGrid();
   const dayView = createViewDay();
   const weekView = createViewWeek();
@@ -34,13 +26,16 @@ function CalendarApp({ onClickAgendaDate }: CalendarAppProps) {
       id: service.id,
       title: service.name,
       start: formatToCalendar(service.scheduledAt),
-      end: formatToCalendar(addDays(service.scheduledAt, 1)),
+      end: formatToCalendar(addHours(service.scheduledAt, 2)),
       calendarId: service.priority,
       description: service.description ?? "",
     }));
   }, [services]);
 
-  console.log({ events });
+  useEffect(() => {
+    calendar?.events.set(events ?? []);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [events]);
 
   const calendar = useNextCalendarApp({
     calendars: {
@@ -90,10 +85,6 @@ function CalendarApp({ onClickAgendaDate }: CalendarAppProps) {
     isResponsive: true,
     locale: "pt-BR",
     defaultView: monthGridView.label,
-    dayBoundaries: {
-      start: "06:00",
-      end: "18:00",
-    },
   });
 
   return (

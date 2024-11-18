@@ -41,18 +41,20 @@ export default function CalendarPage() {
       <article className="flex h-[92%] w-full flex-col space-y-5 overflow-y-auto px-6 pt-16">
         <div className="flex w-full items-center justify-between">
           <h1 className="text-xl">Calendário</h1>
-          <Button
-            variant="transparent"
-            title="Criar Agendamento"
-            onClick={() => router.push("/calendario/registro")}
-          >
-            <IconCirclePlus size={32} className="text-white" />
-          </Button>
-          <Info
-            size={32}
-            onClick={toggleInfoSection}
-            className="info-icon cursor-pointer"
-          />
+          <div className="flex items-center justify-center gap-2">
+            <Button
+              variant="transparent"
+              title="Criar Agendamento"
+              onClick={() => router.push("/calendario/registro")}
+            >
+              <IconCirclePlus size={32} className="text-white" />
+            </Button>
+            <Info
+              size={32}
+              onClick={toggleInfoSection}
+              className="info-icon cursor-pointer"
+            />
+          </div>
         </div>
 
         <AnimatePresence>
@@ -86,11 +88,7 @@ export default function CalendarPage() {
         </AnimatePresence>
 
         <section>
-          <CalendarApp
-            onClickAgendaDate={(date) => {
-              void setSelectedDate(date);
-            }}
-          />
+          <CalendarApp />
         </section>
       </article>
       <NavBar />
