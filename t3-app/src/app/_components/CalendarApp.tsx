@@ -1,10 +1,5 @@
 import { useNextCalendarApp, ScheduleXCalendar } from "@schedule-x/react";
-import {
-  createViewDay,
-  createViewMonthAgenda,
-  createViewMonthGrid,
-  createViewWeek,
-} from "@schedule-x/calendar";
+import { createViewDay, createViewMonthAgenda } from "@schedule-x/calendar";
 import "@schedule-x/theme-default/dist/index.css";
 
 import { api } from "~/trpc/react";
@@ -12,9 +7,8 @@ import { useEffect, useMemo } from "react";
 import { addHours, format } from "date-fns";
 
 function CalendarApp() {
-  const monthGridView = createViewMonthGrid();
   const dayView = createViewDay();
-  const weekView = createViewWeek();
+
   const monthAgendaView = createViewMonthAgenda();
 
   const { data: services } = api.service.list.useQuery();
@@ -79,12 +73,11 @@ function CalendarApp() {
         },
       },
     },
-    callbacks: {},
-    views: [monthGridView, dayView, weekView, monthAgendaView],
+    views: [dayView, monthAgendaView],
     events,
     isResponsive: true,
     locale: "pt-BR",
-    defaultView: monthGridView.label,
+    defaultView: monthAgendaView.name,
   });
 
   return (

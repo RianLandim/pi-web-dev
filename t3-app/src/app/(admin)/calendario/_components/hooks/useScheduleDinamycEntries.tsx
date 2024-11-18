@@ -14,8 +14,24 @@ export function useScheduleDinamycEntries() {
     );
   }, [customers]);
 
+  const priorityOptions = [
+    {
+      label: "Baixo",
+      value: "LOW",
+    },
+    {
+      label: "Médio",
+      value: "MEDIUM",
+    },
+    {
+      label: "Alta",
+      value: "HIGH",
+    },
+  ];
+
   return {
     customerOptions,
     isCustomerLoading,
+    priorityOptions,
   };
 }

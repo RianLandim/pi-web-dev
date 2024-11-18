@@ -27,7 +27,8 @@ export default function ScheduleServiceDialog() {
     },
   });
 
-  const { customerOptions, isCustomerLoading } = useScheduleDinamycEntries();
+  const { customerOptions, isCustomerLoading, priorityOptions } =
+    useScheduleDinamycEntries();
 
   const apiUtils = api.useUtils();
   const createScheduleMutation = api.service.create.useMutation();
@@ -53,7 +54,10 @@ export default function ScheduleServiceDialog() {
         Adicionar aqui um agendamento a seu cliente
       </h2>
 
-      <form className="flex flex-col gap-4" onSubmit={form.onSubmit(submit)}>
+      <form
+        className="flex flex-col gap-4 text-white"
+        onSubmit={form.onSubmit(submit)}
+      >
         <TextInput
           withAsterisk
           label="Nome"
@@ -76,6 +80,15 @@ export default function ScheduleServiceDialog() {
           placeholder="Agendar"
           key={form.key("scheduledAt")}
           {...form.getInputProps("scheduledAt")}
+        />
+
+        <Select
+          data={priorityOptions}
+          withAsterisk
+          label="Prioridade"
+          placeholder="Prioridade"
+          key={form.key("priority")}
+          {...form.getInputProps("priority")}
         />
 
         <Textarea

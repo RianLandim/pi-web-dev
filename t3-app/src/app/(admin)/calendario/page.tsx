@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import "@schedule-x/theme-default/dist/index.css";
 import { Info } from "@phosphor-icons/react";
-import { useCalendarEventDisclosure } from "./_components/hooks/useCalendarEventDisclosure";
+
 import { CalendarEventCard } from "./_components/dialog/CalendarEvent";
 import CalendarApp from "~/app/_components/CalendarApp";
 import NavBar from "~/app/_components/navBar";
@@ -16,7 +16,6 @@ import { useRouter } from "next/navigation";
 export default function CalendarPage() {
   const router = useRouter();
 
-  const { setSelectedDate } = useCalendarEventDisclosure();
   const [showInfo, setShowInfo] = useState(false);
 
   const toggleInfoSection = () => setShowInfo((prev) => !prev);
