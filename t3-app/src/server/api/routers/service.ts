@@ -6,11 +6,21 @@ import { createScheduleValidator } from "~/utils/validators/create-schedule-vali
 export const serviceRouter = createTRPCRouter({
   create: publicProcedure
     .input(createScheduleValidator)
-    .mutation(async ({ ctx, input: data }) => {
+    .mutation(async ({ ctx, input }) => {
+      const { payment, ...data } = input;
+
       await ctx.db.$transaction(async (tx) => {
         const checkout = await tx.checkout.create({
           data: {
             status: "OPEN",
+          },
+        });
+
+        await tx.payment.create({
+          data: {
+            dueAt: payment.dueAt,
+            value: payment.amount,
+            checkoutId: checkout.id,
           },
         });
 

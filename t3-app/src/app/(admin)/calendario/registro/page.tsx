@@ -1,8 +1,17 @@
 "use client";
 
-import { Button, Select, Textarea, TextInput, Title } from "@mantine/core";
+import {
+  Button,
+  Fieldset,
+  NumberInput,
+  Select,
+  Stack,
+  Textarea,
+  TextInput,
+  Title,
+} from "@mantine/core";
 import { useForm, zodResolver } from "@mantine/form";
-import { DateTimePicker } from "@mantine/dates";
+import { DateInput, DateTimePicker } from "@mantine/dates";
 
 import {
   createScheduleValidator,
@@ -24,6 +33,10 @@ export default function ScheduleServiceDialog() {
       description: "",
       scheduledAt: new Date(),
       priority: "LOW",
+      payment: {
+        amount: 0,
+        dueAt: new Date(),
+      },
     },
   });
 
@@ -98,6 +111,27 @@ export default function ScheduleServiceDialog() {
           key={form.key("description")}
           {...form.getInputProps("description")}
         />
+
+        <Fieldset legend="Pagamento" bg="blue">
+          <Stack>
+            <NumberInput
+              label="Preço"
+              placeholder="Preço"
+              prefix="$"
+              allowDecimal
+              key={form.key("payment.amount")}
+              {...form.getInputProps("payment.amount")}
+            />
+
+            <DateInput
+              placeholder="Data limite"
+              label="Data limite"
+              key={form.key("payment.dueAt")}
+              {...form.getInputProps("payment.dueAt")}
+              locale="pt-BR"
+            />
+          </Stack>
+        </Fieldset>
 
         <Button type="submit" loading={createScheduleMutation.isPending}>
           Agendar
