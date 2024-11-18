@@ -9,7 +9,13 @@ import { CalendarEventCard } from "./_components/dialog/CalendarEvent";
 import CalendarApp from "~/app/_components/CalendarApp";
 import NavBar from "~/app/_components/navBar";
 
+import { Button } from "@mantine/core";
+import { IconCirclePlus } from "@tabler/icons-react";
+import { useRouter } from "next/navigation";
+
 export default function CalendarPage() {
+  const router = useRouter();
+
   const { setSelectedDate } = useCalendarEventDisclosure();
   const [showInfo, setShowInfo] = useState(false);
 
@@ -35,6 +41,13 @@ export default function CalendarPage() {
       <article className="flex h-[92%] w-full flex-col space-y-5 overflow-y-auto px-6 pt-16">
         <div className="flex w-full items-center justify-between">
           <h1 className="text-xl">Calendário</h1>
+          <Button
+            variant="transparent"
+            title="Criar Agendamento"
+            onClick={() => router.push("/calendario/registro")}
+          >
+            <IconCirclePlus size={32} className="text-white" />
+          </Button>
           <Info
             size={32}
             onClick={toggleInfoSection}

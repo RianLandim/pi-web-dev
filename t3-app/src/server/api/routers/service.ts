@@ -1,14 +1,29 @@
-import { createServiceValidator } from "~/utils/validators/create-service-validator";
-import { createTRPCRouter, protectedProcedure } from "../trpc";
+import { createTRPCRouter, protectedProcedure, publicProcedure } from "../trpc";
 import { z } from "zod";
 import { TRPCError } from "@trpc/server";
+import { createScheduleValidator } from "~/utils/validators/create-schedule-validator";
 
 export const serviceRouter = createTRPCRouter({
-  create: protectedProcedure
-    .input(createServiceValidator)
+  create: publicProcedure
+    .input(createScheduleValidator)
     .mutation(async ({ ctx, input: data }) => {
-      await ctx.db.service.create({
-        data,
+      await ctx.db.$transaction(async (tx) => {
+        const checkout = await tx.checkout.create({
+          data: {
+            status: "OPEN",
+          },
+        });
+
+        console.log({ checkout });
+
+        await tx.service.create({
+          data: {
+            checkoutId: checkout.id,
+            priority: data.priority,
+            scheduledAt: data.scheduledAt,
+            customerId: data.customerId,
+          },
+        });
       });
     }),
 

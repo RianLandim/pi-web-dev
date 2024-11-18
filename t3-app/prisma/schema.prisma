@@ -70,22 +70,21 @@ model Address {
     Customer  Customer[]
 }
 
-enum ServiceStatus {
-    OPEN
-    PROGRESS
-    CANCELLED
-    FINISHED
+enum Priority {
+    LOW
+    MEDIUM
+    HIGH
 }
 
 model Service {
     id String @id @default(cuid())
 
-    status      ServiceStatus @default(OPEN)
+    priority    Priority
     scheduledAt DateTime
-    customer    Customer      @relation(fields: [customerId], references: [id])
+    customer    Customer  @relation(fields: [customerId], references: [id])
     customerId  String
-    checkout    Checkout      @relation(fields: [checkoutId], references: [id])
-    checkoutId  String        @unique
+    checkout    Checkout? @relation(fields: [checkoutId], references: [id])
+    checkoutId  String?   @unique
 
     createdAt DateTime @default(now())
     updatedAt DateTime @default(now()) @updatedAt
