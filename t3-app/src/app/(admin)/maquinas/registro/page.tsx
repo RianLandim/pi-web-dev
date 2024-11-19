@@ -17,6 +17,7 @@ import {
 } from "~/utils/validators/create-machine-validator";
 import { useMachineDinamycEntries } from "../_components/hooks/useMachineDinamycEntries";
 import { api } from "~/trpc/react";
+import { notifications } from "@mantine/notifications";
 
 export default function RegisterMachine() {
   const router = useRouter();
@@ -44,6 +45,10 @@ export default function RegisterMachine() {
   const submit = (data: CreateMachineValidatorProps) => {
     createMachineMutation.mutate(data, {
       onSuccess: () => {
+        notifications.show({
+          title: "Sucesso",
+          message: "Máquina adicionado com sucesso!",
+        });
         void apiUtils.machine.list.invalidate();
       },
     });
