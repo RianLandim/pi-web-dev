@@ -36,7 +36,7 @@ function CalendarApp() {
       MEDIUM: {
         colorName: "regular",
         lightColors: {
-          main: "#00649E",
+          main: "#FFFF00",
           container: "#D9D9D9",
           onContainer: "#594800",
         },
