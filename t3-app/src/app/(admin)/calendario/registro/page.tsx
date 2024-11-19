@@ -3,6 +3,7 @@
 import {
   Button,
   Fieldset,
+  Group,
   NumberInput,
   Select,
   Stack,
@@ -21,6 +22,7 @@ import { useScheduleDinamycEntries } from "../_components/hooks/useScheduleDinam
 import { api } from "~/trpc/react";
 import { useRouter } from "next/navigation";
 import { notifications } from "@mantine/notifications";
+import { IconArrowLeft } from "@tabler/icons-react";
 
 export default function ScheduleServiceDialog() {
   const router = useRouter();
@@ -62,7 +64,12 @@ export default function ScheduleServiceDialog() {
 
   return (
     <main className="flex h-screen w-full flex-col gap-4 bg-main p-4">
-      <Title className="font-bold text-white">Criar Agendamento</Title>
+      <Group>
+        <Title className="font-bold text-white">Criar Agendamento</Title>
+        <Button variant="outline" radius="lg" onClick={() => router.back()}>
+          <IconArrowLeft size={25} color="white" />
+        </Button>
+      </Group>
       <h2 className="text-sm text-white">
         Adicionar aqui um agendamento a seu cliente
       </h2>

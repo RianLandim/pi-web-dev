@@ -1,18 +1,65 @@
-import { PersonSimple } from "@phosphor-icons/react";
+import { Button, Card, Collapse, Group, Stack, Text } from "@mantine/core";
+import { useDisclosure } from "@mantine/hooks";
+import Link from "next/link";
+import type { RouterOutputs } from "~/trpc/react";
 
 interface cardClientProps {
-  name: string;
-  description: string;
+  customer: RouterOutputs["customer"]["list"][number];
 }
 
-export default function CardClient(props: cardClientProps) {
+export default function CardClient({ customer }: cardClientProps) {
+  const [opened, { toggle }] = useDisclosure();
+
+  const formatAddress = (address: typeof customer.address) =>
+    `${address.street}, ${address.number}, ${address.neighborhood}, ${address.city}-${address.state}`;
+
   return (
-    <div className="flex h-fit w-full rounded-xl bg-cardClientBG px-4 py-3">
-      <div className="h-full w-full">
-        <h2>{props.name}</h2>
-        <h3 className="text-sm">Descrição: {props.description}</h3>
-      </div>
-      <PersonSimple size={32} className="text-main" />
-    </div>
+    <Card shadow="md" padding="md" radius="md" withBorder>
+      <Stack gap="xs">
+        <Group gap="xs">
+          <Text fw="bold">Nome:</Text>
+          <Text>{customer.name}</Text>
+        </Group>
+        <Group gap="xs">
+          <Text fw="bold">Email:</Text>
+          <Text>{customer.email ?? "Não informado"}</Text>
+        </Group>
+
+        <Collapse in={opened}>
+          <Stack gap="xs">
+            <Group gap="xs">
+              <Text fw="bold">Endeço:</Text>
+              <Text>{formatAddress(customer.address)}</Text>
+            </Group>
+
+            <Group gap="xs">
+              <Text fw="bold">Máquinas:</Text>
+              <Text>{customer._count.Machine}</Text>
+            </Group>
+            <Group gap="xs">
+              <Text fw="bold">Serviços:</Text>
+              <Text>{customer._count.services}</Text>
+            </Group>
+          </Stack>
+
+          <Group grow>
+            <Link href={`/clientes/${customer.id}/servicos`}>
+              <Button fullWidth>
+                <Text fw={700}>Ver Serviços</Text>
+              </Button>
+            </Link>
+            <Link href={`/clients/${customer.id}/maquinas`}>
+              <Button fullWidth>
+                <Text fw={700}>Ver maquinas</Text>
+              </Button>
+            </Link>
+          </Group>
+        </Collapse>
+
+        <Button variant="transparent" onClick={toggle}>
+          <Text td="underline">{opened ? "Ver menos" : "Ver mais"}</Text>
+        </Button>
+      </Stack>
+    </Card>
   );
 }

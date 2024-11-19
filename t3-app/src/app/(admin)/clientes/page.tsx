@@ -9,6 +9,7 @@ import { parseAsString, useQueryState } from "nuqs";
 import NavBar from "~/app/_components/navBar";
 import { api } from "~/trpc/react";
 import { match, P } from "ts-pattern";
+import CardClient from "./_components/CardClient";
 
 export default function PaymentsPage() {
   const [searchName, setSearchName] = useQueryState(
@@ -92,25 +93,8 @@ export default function PaymentsPage() {
                 </p>
               ))
               .with({ data: P.nonNullable }, ({ data }) => {
-                return data.map((item, index) => (
-                  <Card
-                    key={index.toString()}
-                    shadow="md"
-                    padding="md"
-                    radius="md"
-                    withBorder
-                  >
-                    <Stack gap="xs">
-                      <Group gap="xs">
-                        <Text fw="bold">Nome:</Text>
-                        <Text>{item.name}</Text>
-                      </Group>
-                      <Group gap="xs">
-                        <Text fw="bold">Email:</Text>
-                        <Text>{item.email ?? "Não informado"}</Text>
-                      </Group>
-                    </Stack>
-                  </Card>
+                return data.map((item) => (
+                  <CardClient key={item.id} customer={item} />
                 ));
               })
               .with({ data: P.nullish }, () => (

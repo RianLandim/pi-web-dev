@@ -22,7 +22,17 @@ export const customerRouter = createTRPCRouter({
     }),
 
   list: publicProcedure.query(async ({ ctx }) => {
-    const customers = await ctx.db.customer.findMany();
+    const customers = await ctx.db.customer.findMany({
+      include: {
+        address: true,
+        _count: {
+          select: {
+            services: true,
+            Machine: true,
+          },
+        },
+      },
+    });
 
     return customers;
   }),

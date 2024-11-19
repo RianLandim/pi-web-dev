@@ -11,19 +11,28 @@ export const paymentRouter = createTRPCRouter({
       });
     }),
 
-  list: publicProcedure.query(async ({ ctx }) => {
-    const payments = await ctx.db.payment.findMany({
-      include: {
-        checkout: {
-          include: {
-            Service: true,
+  list: publicProcedure
+    .input(z.object({ customerId: z.string() }))
+    .query(async ({ ctx, input }) => {
+      const payments = await ctx.db.payment.findMany({
+        where: {
+          checkout: {
+            Service: {
+              customerId: input.customerId,
+            },
           },
         },
-      },
-    });
+        include: {
+          checkout: {
+            include: {
+              Service: true,
+            },
+          },
+        },
+      });
 
-    return payments;
-  }),
+      return payments;
+    }),
 
   update: protectedProcedure
     .input(

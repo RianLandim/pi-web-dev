@@ -16,11 +16,11 @@ export function useScheduleDinamycEntries() {
 
   const priorityOptions = [
     {
-      label: "Baixo",
+      label: "Baixa",
       value: "LOW",
     },
     {
-      label: "Médio",
+      label: "Média",
       value: "MEDIUM",
     },
     {
