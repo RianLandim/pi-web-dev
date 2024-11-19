@@ -43,8 +43,6 @@ export default function RegisterMachine() {
     createMachineMutation.mutate(data);
   };
 
-  console.log(form.errors);
-
   return (
     <main className="relative h-screen w-full bg-main px-6 py-16">
       <Group justify="space-between">

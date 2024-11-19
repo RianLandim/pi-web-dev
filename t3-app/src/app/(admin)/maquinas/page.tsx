@@ -1,31 +1,55 @@
 "use client";
 
-import { TextInput, Text, Stack, Group, Card, Skeleton } from "@mantine/core";
+import {
+  TextInput,
+  Text,
+  Stack,
+  Group,
+  Card,
+  Skeleton,
+  Button,
+} from "@mantine/core";
 import { IconSearch, IconArrowLeft, IconCirclePlus } from "@tabler/icons-react";
 import { parseAsString, useQueryState } from "nuqs";
 import NavBar from "~/app/_components/navBar";
 import { api } from "~/trpc/react";
 import { match, P } from "ts-pattern";
 import Link from "next/link";
+import { MachineCard } from "./_components/MachineCard";
+import { useRouter } from "next/navigation";
 
 export default function PaymentsPage() {
+  const router = useRouter();
+
   const [searchName, setSearchName] = useQueryState(
-    "",
-    parseAsString.withDefault("").withOptions({
+    "buscar",
+    parseAsString.withOptions({
       clearOnDefault: true,
     }),
   );
 
-  const machinesQuery = api.machine.list.useQuery(undefined, {
-    staleTime: Infinity,
-  });
+  const [customerId] = useQueryState(
+    "cliente",
+    parseAsString.withOptions({
+      clearOnDefault: true,
+    }),
+  );
+
+  const machinesQuery = api.machine.list.useQuery(
+    { customerId: customerId ?? undefined, name: searchName ?? undefined },
+    {
+      staleTime: Infinity,
+    },
+  );
 
   return (
     <main className="relative h-screen w-full bg-main pt-16">
       <article className="flex h-[92%] w-full flex-col space-y-5 px-6">
         <div className="flex w-full items-center justify-between">
           <h1 className="text-xl font-bold text-white">Máquinas</h1>
-          <IconArrowLeft size={25} color="white" />
+          <Button variant="transparent" onClick={() => router.back()}>
+            <IconArrowLeft size={25} color="white" />
+          </Button>
         </div>
 
         <section className="flex h-fit items-center space-x-2">
@@ -35,7 +59,7 @@ export default function PaymentsPage() {
               className="w-full"
               radius="md"
               onChange={({ target }) => setSearchName(target.value)}
-              value={searchName}
+              value={searchName ?? undefined}
             />
           </div>
 
@@ -77,25 +101,8 @@ export default function PaymentsPage() {
                 </p>
               ))
               .with({ data: P.nonNullable }, ({ data }) => {
-                return data.map((item, index) => (
-                  <Card
-                    key={index.toString()}
-                    shadow="md"
-                    padding="md"
-                    radius="md"
-                    withBorder
-                  >
-                    <Stack gap="xs">
-                      <Group gap="xs">
-                        <Text fw="bold">Nome:</Text>
-                        <Text>{item.name}</Text>
-                      </Group>
-                      <Group gap="xs">
-                        <Text fw="bold">Problema:</Text>
-                        <Text>{item.problem ?? "Não informado"}</Text>
-                      </Group>
-                    </Stack>
-                  </Card>
+                return data.map((item) => (
+                  <MachineCard key={item.id} machine={item} />
                 ));
               })
               .with({ data: P.nullish }, () => (

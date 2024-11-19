@@ -48,7 +48,12 @@ export default function CardClient({ customer }: cardClientProps) {
                 <Text fw={700}>Ver Serviços</Text>
               </Button>
             </Link>
-            <Link href={`/clients/${customer.id}/maquinas`}>
+            <Link
+              href={{
+                pathname: `/maquinas`,
+                query: { cliente: customer.id },
+              }}
+            >
               <Button fullWidth>
                 <Text fw={700}>Ver maquinas</Text>
               </Button>
