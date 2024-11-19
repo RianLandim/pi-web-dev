@@ -24,6 +24,8 @@ export default function RegisterMachine() {
   const { customersOptions, isCustomersLoading, typeOptions } =
     useMachineDinamycEntries();
 
+  const apiUtils = api.useUtils();
+
   const form = useForm<CreateMachineValidatorProps>({
     mode: "controlled",
     initialValues: {
@@ -40,7 +42,11 @@ export default function RegisterMachine() {
   const createMachineMutation = api.machine.create.useMutation();
 
   const submit = (data: CreateMachineValidatorProps) => {
-    createMachineMutation.mutate(data);
+    createMachineMutation.mutate(data, {
+      onSuccess: () => {
+        void apiUtils.machine.list.invalidate();
+      },
+    });
   };
 
   return (
