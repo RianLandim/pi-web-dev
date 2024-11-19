@@ -14,9 +14,8 @@ import { parseAsString, useQueryState } from "nuqs";
 import NavBar from "~/app/_components/navBar";
 import { api } from "~/trpc/react";
 import { match, P } from "ts-pattern";
-import { statusLabel } from "~/utils/validators/create-service-validator";
-import { formatCurrency } from "~/app/utils/format-currency";
 import { useRouter } from "next/navigation";
+import { ServiceCard } from "./_components/ServiceCard";
 
 export default function PaymentsPage({
   params,
@@ -98,31 +97,8 @@ export default function PaymentsPage({
                 </p>
               ))
               .with({ data: P.nonNullable }, ({ data }) => {
-                return data.map((item, index) => (
-                  <Card
-                    key={index}
-                    shadow="md"
-                    padding="md"
-                    radius="md"
-                    withBorder
-                  >
-                    <Stack gap="xs">
-                      <Group gap="xs">
-                        <Text fw="bold">Nome:</Text>
-                        <Text>{item.checkout.Service?.name}</Text>
-                      </Group>
-                      <Group gap="xs">
-                        <Text fw="bold">Valor:</Text>
-                        <Text>{formatCurrency(item.value)}</Text>
-                      </Group>
-                      <Group gap="xs">
-                        <Text fw="bold">Status:</Text>
-                        <Text>
-                          {statusLabel[item.checkout.status] ?? "Não informado"}
-                        </Text>
-                      </Group>
-                    </Stack>
-                  </Card>
+                return data.map((item) => (
+                  <ServiceCard key={item.id} service={item} />
                 ));
               })
               .with({ data: P.nullish }, () => (

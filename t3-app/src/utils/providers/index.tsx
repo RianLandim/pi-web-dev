@@ -5,6 +5,9 @@ import { type ReactNode } from "react";
 import { MantineProvider } from "@mantine/core";
 import { Notifications } from "@mantine/notifications";
 import { HydrationBoundary } from "@tanstack/react-query";
+import { DatesProvider } from "@mantine/dates";
+
+import "dayjs/locale/pt-br";
 
 type ProvidersProps = {
   children: ReactNode;
@@ -13,8 +16,10 @@ type ProvidersProps = {
 export default function Providers({ children }: ProvidersProps) {
   return (
     <MantineProvider>
-      <Notifications />
-      <HydrationBoundary>{children}</HydrationBoundary>
+      <DatesProvider settings={{ locale: "pt-br" }}>
+        <Notifications />
+        <HydrationBoundary>{children}</HydrationBoundary>
+      </DatesProvider>
     </MantineProvider>
   );
 }

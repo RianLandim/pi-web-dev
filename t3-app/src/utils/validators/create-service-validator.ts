@@ -20,5 +20,5 @@ export const createServiceValidator = z.object({
 export const statusLabel: Record<CheckoutStatus, string> = {
   OPEN: "Aberta",
   CANCELLED: "Cancelado",
-  PAID: "Pago",
+  PAID: "Finalizado",
 } as const;

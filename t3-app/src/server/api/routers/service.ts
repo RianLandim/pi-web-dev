@@ -2,6 +2,7 @@ import { createTRPCRouter, protectedProcedure, publicProcedure } from "../trpc";
 import { z } from "zod";
 import { TRPCError } from "@trpc/server";
 import { createScheduleValidator } from "~/utils/validators/create-schedule-validator";
+import { CheckoutStatus } from "@prisma/client";
 
 export const serviceRouter = createTRPCRouter({
   create: publicProcedure
@@ -60,5 +61,37 @@ export const serviceRouter = createTRPCRouter({
       }
 
       return service;
+    }),
+
+  update: publicProcedure
+    .input(
+      createScheduleValidator
+        .partial()
+        .and(
+          z.object({ id: z.string(), status: z.nativeEnum(CheckoutStatus) }),
+        ),
+    )
+    .mutation(async ({ ctx, input }) => {
+      const checkout = await ctx.db.checkout.findUnique({
+        where: {
+          id: input.id,
+        },
+      });
+
+      if (checkout?.status !== "OPEN") {
+        throw new TRPCError({
+          code: "BAD_REQUEST",
+          message: "Esse serviço já foi finalizado",
+        });
+      }
+
+      await ctx.db.checkout.update({
+        where: {
+          id: input.id,
+        },
+        data: {
+          status: input.status,
+        },
+      });
     }),
 });
