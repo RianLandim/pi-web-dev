@@ -2,6 +2,8 @@ import { useNextCalendarApp, ScheduleXCalendar } from "@schedule-x/react";
 import { createViewDay, createViewMonthAgenda } from "@schedule-x/calendar";
 import "@schedule-x/theme-default/dist/index.css";
 
+import { createEventModalPlugin } from "@schedule-x/event-modal";
+
 import { api } from "~/trpc/react";
 import { useEffect, useMemo } from "react";
 import { addHours, format } from "date-fns";
@@ -31,7 +33,11 @@ function CalendarApp() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [events]);
 
+  const eventModal = createEventModalPlugin();
+  eventModal.close(); // close the modal
+
   const calendar = useNextCalendarApp({
+    plugins: [eventModal],
     calendars: {
       MEDIUM: {
         colorName: "regular",
