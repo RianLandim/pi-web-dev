@@ -35,7 +35,7 @@ export default function CalendarPage() {
   }, []);
 
   return (
-    <main className="relative h-screen w-full bg-main text-whiteApp">
+    <main className="h-screen w-full bg-main text-whiteApp">
       <CalendarEventCard />
       <article className="flex h-[92%] w-full flex-col space-y-5 overflow-y-auto px-6 pt-16">
         <div className="flex w-full items-center justify-between">

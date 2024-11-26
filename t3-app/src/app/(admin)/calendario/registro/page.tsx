@@ -56,7 +56,7 @@ export default function ScheduleServiceDialog() {
           message: "Agendamento feito com sucesso",
           color: "green",
         });
-        void apiUtils.service.list.invalidate();
+        void apiUtils.payments.list.invalidate();
         router.replace("/calendario");
       },
     });
