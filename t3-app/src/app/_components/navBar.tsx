@@ -1,4 +1,4 @@
-import { House, UserCircle, Wrench } from "@phosphor-icons/react";
+import { Bell, House, UserCircle, Wrench } from "@phosphor-icons/react";
 import Link from "next/link";
 
 export default function NavBar() {
@@ -15,10 +15,10 @@ export default function NavBar() {
       <Link href="/maquinas">
         <Wrench weight="fill" size={32} />
       </Link>
-      {/* 
-      <Link href="/calendario">
+
+      <Link href="/notificacoes">
         <Bell size={32} weight="fill" />
-      </Link> */}
+      </Link>
     </section>
   );
 }

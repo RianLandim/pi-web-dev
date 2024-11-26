@@ -37,7 +37,8 @@
     "**/*.tsx",
     "**/*.cjs",
     "**/*.js",
-    ".next/types/**/*.ts"
+    ".next/types/**/*.ts",
+    "src/app/(admin)/notificacoes/_components/NotificationCard.tss"
   ],
   "exclude": ["node_modules"]
 }

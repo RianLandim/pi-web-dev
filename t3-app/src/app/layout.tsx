@@ -10,6 +10,9 @@ import { TRPCReactProvider } from "~/trpc/react";
 import Providers from "~/utils/providers";
 import { Suspense } from "react";
 
+import { setDefaultOptions } from "date-fns";
+import { ptBR } from "date-fns/locale";
+
 export const metadata: Metadata = {
   title: "Refritec",
   description: "Refritec seu sistema de agendamento",
@@ -19,6 +22,10 @@ export const metadata: Metadata = {
 export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
+  setDefaultOptions({
+    locale: ptBR,
+  });
+
   return (
     <html lang="en" className={`${GeistSans.variable}`}>
       <body>
