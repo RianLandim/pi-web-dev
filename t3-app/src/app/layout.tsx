@@ -31,7 +31,7 @@ export default function RootLayout({
 
   return (
     <html
-      lang="en"
+      lang="pt-br"
       // className={`${GeistSans.variable}`}
     >
       <body className={inter.className}>

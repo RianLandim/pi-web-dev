@@ -27,16 +27,16 @@ export default function PaymentsPage() {
   });
 
   return (
-    <main className="relative h-screen w-full bg-main pt-16">
+    <main className="relative h-dvh w-full bg-main">
       {isRegisterCardOpen && (
-        <div className="absolute left-0 top-0 z-10 flex h-screen w-[100%] items-center justify-center bg-black bg-opacity-50">
+        <div className="absolute left-0 top-0 z-10 flex h-dvh w-[100%] items-center justify-center bg-black bg-opacity-50">
           <div className="w-[90%] sm:w-[60%] md:w-[40%]" ref={cardRef}>
             <RegisterCardClient setIsRegisterCardOpen={setIsRegisterCardOpen} />
           </div>
         </div>
       )}
 
-      <article className="flex h-[92%] w-full flex-col space-y-5 px-6 pb-6 overflow-y-auto">
+      <article className="flex h-[92%] pt-16 w-full flex-col space-y-5 px-6">
         <div className="flex w-full items-center justify-between">
           <h1 className="text-xl font-bold text-white">Clientes</h1>
         </div>
@@ -59,7 +59,7 @@ export default function PaymentsPage() {
           />
         </section>
 
-        <section className="flex flex-col space-y-4 md:grid-cols-2">
+        <section className="flex flex-col space-y-4 md:grid-cols-2 h-fit overflow-y-auto pb-6">
           {match(customersQuery)
             .with({ isLoading: true }, () => (
               <Skeleton visible={customersQuery.isLoading}>

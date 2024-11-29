@@ -22,8 +22,15 @@ export default function CardClient({ customer }: cardClientProps) {
     `${address.street}, ${address.number}, ${address.neighborhood}, ${address.city}-${address.state}`;
 
   return (
-    <Card shadow="md" padding="md" radius="md" withBorder>
-      <Flex direction="column" gap="md" >
+    <Card
+      shadow="md"
+      padding="md"
+      radius="md"
+      withBorder
+      mih={152}
+      // style={{ height: "fit-content", paddingBotton: "1rem" }}
+    >
+      <Flex direction="column" gap="md">
         <Group gap="xs">
           <Text fw="bold">Nome:</Text>
           <Text>{customer.name}</Text>
@@ -54,7 +61,7 @@ export default function CardClient({ customer }: cardClientProps) {
 
             <Group style={{ alignSelf: "center" }}>
               <Link href={`/clientes/${customer.id}/servicos`}>
-                <Button  >
+                <Button>
                   <Text fw={500}>Ver Serviços</Text>
                 </Button>
               </Link>
@@ -64,7 +71,7 @@ export default function CardClient({ customer }: cardClientProps) {
                   query: { cliente: customer.id },
                 }}
               >
-                <Button >
+                <Button>
                   <Text fw={500}>Ver maquinas</Text>
                 </Button>
               </Link>
