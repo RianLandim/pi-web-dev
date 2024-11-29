@@ -22,15 +22,8 @@ export default function CardClient({ customer }: cardClientProps) {
     `${address.street}, ${address.number}, ${address.neighborhood}, ${address.city}-${address.state}`;
 
   return (
-    <Card
-      shadow="md"
-      padding="md"
-      radius="md"
-      withBorder
-      mih={152}
-      // style={{ height: "fit-content", paddingBotton: "1rem" }}
-    >
-      <Flex direction="column" gap="md">
+    <Card shadow="md" padding="md" radius="md" withBorder>
+      <Stack gap="md">
         <Group gap="xs">
           <Text fw="bold">Nome:</Text>
           <Text>{customer.name}</Text>
@@ -60,21 +53,23 @@ export default function CardClient({ customer }: cardClientProps) {
             </Stack>
 
             <Group style={{ alignSelf: "center" }}>
-              <Link href={`/clientes/${customer.id}/servicos`}>
-                <Button>
-                  <Text fw={500}>Ver Serviços</Text>
-                </Button>
-              </Link>
-              <Link
-                href={{
-                  pathname: `/maquinas`,
-                  query: { cliente: customer.id },
-                }}
-              >
-                <Button>
-                  <Text fw={500}>Ver maquinas</Text>
-                </Button>
-              </Link>
+              <Flex direction="row" gap="md">
+                <Link href={`/clientes/${customer.id}/servicos`}>
+                  <Button>
+                    <Text fw={500}>Ver Serviços</Text>
+                  </Button>
+                </Link>
+                <Link
+                  href={{
+                    pathname: `/maquinas`,
+                    query: { cliente: customer.id },
+                  }}
+                >
+                  <Button>
+                    <Text fw={500}>Ver maquinas</Text>
+                  </Button>
+                </Link>
+              </Flex>
             </Group>
           </Flex>
         </Collapse>
@@ -87,7 +82,7 @@ export default function CardClient({ customer }: cardClientProps) {
         >
           <Text td="underline">{opened ? "Ver menos" : "Ver mais"}</Text>
         </Button>
-      </Flex>
+      </Stack>
     </Card>
   );
 }

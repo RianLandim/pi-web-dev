@@ -4,6 +4,7 @@ import {
   TextInput,
   Text,
   Stack,
+  ScrollArea,
   Group,
   Card,
   Skeleton,
@@ -43,8 +44,8 @@ export default function PaymentsPage() {
   );
 
   return (
-    <main className="relative h-screen w-full bg-main pt-16">
-      <article className="flex h-[92%] w-full flex-col space-y-5 px-6 pb-6 ">
+    <main className="relative h-dvh w-full bg-main">
+      <article className="flex h-[92%] w-full flex-col space-y-5 px-6 pb-6 pt-16">
         <div className="flex w-full items-center justify-between">
           <h1 className="text-xl font-bold text-white">Máquinas</h1>
           <Button variant="transparent" onClick={() => router.back()}>
@@ -68,8 +69,8 @@ export default function PaymentsPage() {
           </Link>
         </section>
 
-        <section className="grid gap-4 md:grid-cols-2 overflow-y-auto">
-          <Stack gap="lg">
+        <ScrollArea>
+          <section className="grid gap-4 overflow-y-auto md:grid-cols-2">
             {match(machinesQuery)
               .with({ isLoading: true }, () => (
                 <Skeleton visible={machinesQuery.isLoading}>
@@ -109,8 +110,8 @@ export default function PaymentsPage() {
                 <p>Nenhuma maquina encontrada!</p>
               ))
               .exhaustive()}
-          </Stack>
-        </section>
+          </section>
+        </ScrollArea>
       </article>
       <NavBar />
     </main>

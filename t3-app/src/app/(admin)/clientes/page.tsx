@@ -3,7 +3,15 @@
 import { useRef, useState } from "react";
 
 import RegisterCardClient from "./_components/RegisterClientCard";
-import { TextInput, Text, Stack, Group, Card, Skeleton } from "@mantine/core";
+import {
+  TextInput,
+  Text,
+  Stack,
+  Group,
+  Card,
+  Skeleton,
+  ScrollArea,
+} from "@mantine/core";
 import { IconSearch, IconCirclePlus } from "@tabler/icons-react";
 import { parseAsString, useQueryState } from "nuqs";
 import NavBar from "~/app/_components/navBar";
@@ -36,7 +44,7 @@ export default function PaymentsPage() {
         </div>
       )}
 
-      <article className="flex h-[92%] pt-16 w-full flex-col space-y-5 px-6">
+      <article className="flex h-[92%] w-full flex-col space-y-5 px-6 pt-16">
         <div className="flex w-full items-center justify-between">
           <h1 className="text-xl font-bold text-white">Clientes</h1>
         </div>
@@ -59,45 +67,49 @@ export default function PaymentsPage() {
           />
         </section>
 
-        <section className="flex flex-col space-y-4 md:grid-cols-2 h-fit overflow-y-auto pb-6">
-          {match(customersQuery)
-            .with({ isLoading: true }, () => (
-              <Skeleton visible={customersQuery.isLoading}>
-                {new Array(5).fill({}).map((_item, index) => (
-                  <Card
-                    key={index.toString()}
-                    shadow="md"
-                    padding="md"
-                    radius="xl"
-                    withBorder
-                  >
-                    <Stack gap="xs">
-                      <Group gap="xs">
-                        <Text fw="bold">Nome:</Text>
-                        <Text>John Doe</Text>
-                      </Group>
-                      <Group gap="xs">
-                        <Text fw="bold">Email:</Text>
-                        <Text>jhondoe@email.com.br</Text>
-                      </Group>
-                    </Stack>
-                  </Card>
-                ))}
-              </Skeleton>
-            ))
-            .with({ isError: true }, () => (
-              <p className="font-bold text-red-500">
-                Ocorreu um erro ao listar clientes
-              </p>
-            ))
-            .with({ data: P.nonNullable }, ({ data }) => {
-              return data.map((item) => (
-                <CardClient key={item.id} customer={item} />
-              ));
-            })
-            .with({ data: P.nullish }, () => <p>Nenhum cliente encontrado!</p>)
-            .exhaustive()}
-        </section>
+        <ScrollArea>
+          <section className="grid gap-4 overflow-y-auto pb-6 md:grid-cols-2">
+            {match(customersQuery)
+              .with({ isLoading: true }, () => (
+                <Skeleton visible={customersQuery.isLoading}>
+                  {new Array(5).fill({}).map((_item, index) => (
+                    <Card
+                      key={index.toString()}
+                      shadow="md"
+                      padding="md"
+                      radius="xl"
+                      withBorder
+                    >
+                      <Stack gap="xs">
+                        <Group gap="xs">
+                          <Text fw="bold">Nome:</Text>
+                          <Text>John Doe</Text>
+                        </Group>
+                        <Group gap="xs">
+                          <Text fw="bold">Email:</Text>
+                          <Text>jhondoe@email.com.br</Text>
+                        </Group>
+                      </Stack>
+                    </Card>
+                  ))}
+                </Skeleton>
+              ))
+              .with({ isError: true }, () => (
+                <p className="font-bold text-red-500">
+                  Ocorreu um erro ao listar clientes
+                </p>
+              ))
+              .with({ data: P.nonNullable }, ({ data }) => {
+                return data.map((item) => (
+                  <CardClient key={item.id} customer={item} />
+                ));
+              })
+              .with({ data: P.nullish }, () => (
+                <p>Nenhum cliente encontrado!</p>
+              ))
+              .exhaustive()}
+          </section>
+        </ScrollArea>
       </article>
       <NavBar />
     </main>
