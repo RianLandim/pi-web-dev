@@ -44,7 +44,7 @@ export default function PaymentsPage() {
 
   return (
     <main className="relative h-screen w-full bg-main pt-16">
-      <article className="flex h-[92%] w-full flex-col space-y-5 px-6">
+      <article className="flex h-[92%] w-full flex-col space-y-5 px-6 pb-6 overflow-y-auto">
         <div className="flex w-full items-center justify-between">
           <h1 className="text-xl font-bold text-white">Máquinas</h1>
           <Button variant="transparent" onClick={() => router.back()}>

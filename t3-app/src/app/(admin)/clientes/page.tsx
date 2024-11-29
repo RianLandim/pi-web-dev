@@ -36,7 +36,7 @@ export default function PaymentsPage() {
         </div>
       )}
 
-      <article className="flex h-[92%] w-full flex-col space-y-5 px-6">
+      <article className="flex h-[92%] w-full flex-col space-y-5 px-6 pb-6 overflow-y-auto">
         <div className="flex w-full items-center justify-between">
           <h1 className="text-xl font-bold text-white">Clientes</h1>
         </div>
@@ -59,7 +59,7 @@ export default function PaymentsPage() {
           />
         </section>
 
-        <section className="grid gap-4 md:grid-cols-2">
+        <section className="flex flex-col space-y-4 md:grid-cols-2">
           {match(customersQuery)
             .with({ isLoading: true }, () => (
               <Skeleton visible={customersQuery.isLoading}>

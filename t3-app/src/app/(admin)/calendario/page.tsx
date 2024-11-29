@@ -70,15 +70,15 @@ export default function CalendarPage() {
                 <div>
                   <div className="flex items-center justify-between">
                     <p>Prioridade alta</p>
-                    <div className="h-3 w-3 rounded-full bg-[#f91c45]"></div>
+                    <div className="h-3 w-3 rounded-full bg-[#FF1944]"></div>
                   </div>
                   <div className="flex items-center justify-between space-x-3">
                     <p>Prioridade média</p>
-                    <div className="h-3 w-3 rounded-full bg-[#FFFF00]"></div>
+                    <div className="h-3 w-3 rounded-full bg-[#FFC800]"></div>
                   </div>
                   <div className="flex items-center justify-between space-x-3">
                     <p>Prioridade baixa</p>
-                    <div className="h-3 w-3 rounded-full bg-[#44AF69]"></div>
+                    <div className="h-3 w-3 rounded-full bg-[#208644]"></div>
                   </div>
                 </div>
               </div>
