@@ -3,7 +3,7 @@ import Link from "next/link";
 
 export default function NavBar() {
   return (
-    <section className="absolute bottom-0 right-0 flex h-[8%] w-full items-center justify-between bg-main px-4 text-white drop-shadow-navBarShadow">
+    <section className="absolute bottom-0 right-0 flex h-[8%] w-full items-center justify-between bg-main px-4 text-white drop-shadow-navBarShadow md:justify-around">
       <Link href="/calendario">
         <House size={32} weight="fill" />
       </Link>
