@@ -68,7 +68,7 @@ export default function PaymentsPage() {
           </Link>
         </section>
 
-        <section className="flex h-fit w-full flex-col space-y-3 overflow-scroll rounded-xl pb-6">
+        <section className="grid gap-4 md:grid-cols-2">
           <Stack gap="lg">
             {match(machinesQuery)
               .with({ isLoading: true }, () => (

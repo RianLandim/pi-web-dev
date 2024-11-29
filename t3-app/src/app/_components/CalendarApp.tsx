@@ -1,5 +1,9 @@
 import { useNextCalendarApp, ScheduleXCalendar } from "@schedule-x/react";
-import { createViewDay, createViewMonthAgenda } from "@schedule-x/calendar";
+import {
+  createViewDay,
+  createViewMonthAgenda,
+  createViewMonthGrid,
+} from "@schedule-x/calendar";
 import "@schedule-x/theme-default/dist/index.css";
 
 import { createEventModalPlugin } from "@schedule-x/event-modal";
@@ -10,7 +14,7 @@ import { addHours, format } from "date-fns";
 
 function CalendarApp() {
   const dayView = createViewDay();
-
+  const monthGridView = createViewMonthGrid();
   const monthAgendaView = createViewMonthAgenda();
 
   const { data: services } = api.service.list.useQuery();
@@ -42,44 +46,44 @@ function CalendarApp() {
       MEDIUM: {
         colorName: "regular",
         lightColors: {
-          main: "#FFFF00",
-          container: "#D9D9D9",
-          onContainer: "#594800",
+          main: "#FFC800",
+          container: "#FFDC5E",
+          onContainer: "#000",
         },
         darkColors: {
           main: "#00649E",
-          onContainer: "#D9D9D9",
+          onContainer: "#FFDC5E",
           container: "#a29742",
         },
       },
       HIGH: {
         colorName: "highPriority",
         lightColors: {
-          main: "#f91c45",
-          container: "#ffd2dc",
-          onContainer: "#59000d",
+          main: "#FF1944",
+          container: "#FF5E7C",
+          onContainer: "#000",
         },
         darkColors: {
-          main: "#f91c45",
-          onContainer: "#ffdee6",
-          container: "#a24258",
+          main: "#FF1944",
+          onContainer: "#FF5E7C",
+          container: "#000",
         },
       },
       LOW: {
         colorName: "lowPriority",
         lightColors: {
-          main: "#44AF69",
+          main: "#208644",
           container: "#dafff0",
-          onContainer: "#004d3d",
+          onContainer: "#0C331A",
         },
         darkColors: {
-          main: "#44AF69",
+          main: "#208644",
           onContainer: "#e6fff5",
-          container: "#42a297",
+          container: "#0C331A",
         },
       },
     },
-    views: [dayView, monthAgendaView],
+    views: [monthGridView, dayView, monthAgendaView],
     events,
     isResponsive: true,
     locale: "pt-BR",

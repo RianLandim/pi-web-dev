@@ -45,7 +45,12 @@ export function MachineCard({ machine }: MachineCardProps) {
           </Stack>
         </Collapse>
 
-        <Button variant="transparent" onClick={toggle}>
+        <Button
+          variant="filled"
+          onClick={toggle}
+          w={120}
+          style={{ alignSelf: "center" }}
+        >
           <Text td="underline">{opened ? "Ver menos" : "Ver mais"}</Text>
         </Button>
       </Stack>

@@ -1,9 +1,10 @@
+import { Inter } from "next/font/google";
 import "~/styles/globals.css";
 import "@mantine/core/styles.css";
 import "@mantine/dates/styles.css";
 import "@mantine/notifications/styles.css";
 
-import { GeistSans } from "geist/font/sans";
+// import { GeistSans } from "geist/font/sans";
 import { type Metadata } from "next";
 
 import { TRPCReactProvider } from "~/trpc/react";
@@ -19,6 +20,8 @@ export const metadata: Metadata = {
   icons: [{ rel: "icon", url: "/favicon.ico" }],
 };
 
+const inter = Inter({ subsets: ["latin"] });
+
 export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
@@ -27,8 +30,11 @@ export default function RootLayout({
   });
 
   return (
-    <html lang="en" className={`${GeistSans.variable}`}>
-      <body>
+    <html
+      lang="en"
+      // className={`${GeistSans.variable}`}
+    >
+      <body className={inter.className}>
         <TRPCReactProvider>
           <Suspense>
             <Providers>{children}</Providers>

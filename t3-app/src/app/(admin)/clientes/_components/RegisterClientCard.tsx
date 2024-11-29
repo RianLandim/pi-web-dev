@@ -71,12 +71,12 @@ export default function RegisterCardClient({
   });
 
   return (
-    <section className="flex h-fit w-full flex-col space-y-4 rounded-xl bg-cardClientBG px-4 py-3">
+    <section className="flex text-whiteApp h-fit w-full flex-col space-y-4 rounded-xl bg-cardClientBG px-4 py-3">
       <form
         className="flex h-fit w-full flex-col justify-between space-y-3"
         onSubmit={form.onSubmit(submit)}
       >
-        <h1 className="text-lg font-bold text-white">Registro de Cliente</h1>
+        <h1 className="text-lg font-bold">Registro de Cliente</h1>
 
         <div className="flex h-fit w-full flex-col space-y-2">
           <div className="flex flex-col space-y-1">
